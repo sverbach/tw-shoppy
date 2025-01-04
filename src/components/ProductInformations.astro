@@ -1,7 +1,7 @@
 ---
-import type { z } from "zod";
-import type { MoneyV2Result } from "../utils/schemas";
-import Money from "./Money.svelte";
+import type { z } from 'zod';
+import type { MoneyV2Result } from '../utils/schemas';
+import Money from './Money.svelte';
 
 export interface Props {
   price?: z.infer<typeof MoneyV2Result>;
@@ -10,10 +10,10 @@ export interface Props {
 const { price, title } = Astro.props as Props;
 ---
 
-<h1 class="text-2xl font-bold text-zinc-800 sm:text-4xl">
+<h1 class="text-2xl text-zinc-800 sm:text-4xl font-bold">
   {title}
 </h1>
-<p class="mt-4 text-3xl font-bold text-emerald-900">
+<p class="text-3xl text-emerald-900 mt-4 font-bold">
   <Money price={price} />
 </p>
 
@@ -22,7 +22,7 @@ const { price, title } = Astro.props as Props;
   <div class="flex items-center gap-4">
     <div class="flex">
       <svg
-        class="h-5 w-5 text-yellow-400"
+        class="text-yellow-400 h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -32,7 +32,7 @@ const { price, title } = Astro.props as Props;
         ></path>
       </svg>
       <svg
-        class="h-5 w-5 text-yellow-400"
+        class="text-yellow-400 h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -42,7 +42,7 @@ const { price, title } = Astro.props as Props;
         ></path>
       </svg>
       <svg
-        class="h-5 w-5 text-yellow-400"
+        class="text-yellow-400 h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -52,7 +52,7 @@ const { price, title } = Astro.props as Props;
         ></path>
       </svg>
       <svg
-        class="h-5 w-5 text-yellow-400"
+        class="text-yellow-400 h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -62,7 +62,7 @@ const { price, title } = Astro.props as Props;
         ></path>
       </svg>
       <svg
-        class="h-5 w-5 text-gray-200"
+        class="text-gray-200 h-5 w-5"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -72,14 +72,11 @@ const { price, title } = Astro.props as Props;
         ></path>
       </svg>
     </div>
-    <a href="#reviews" class="text-sm text-emerald-900 hover:underline"
-      >42 Reviews</a
-    >
+    <a href="#reviews" class="text-sm text-emerald-900 hover:underline">42 Reviews</a>
   </div>
   <div class="mt-6">
     <p class="text-base text-zinc-900">
-      This store is for demo purposes only. No orders will be fulfilled. Please
-      visit the brand's <a
+      This store is for demo purposes only. No orders will be fulfilled. Please visit the brand's <a
         class="text-emerald-900 underline"
         href="https://www.lateafternoons.ca"
         target="_blank"

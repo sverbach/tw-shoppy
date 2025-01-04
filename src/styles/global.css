@@ -9,25 +9,16 @@
 
   body {
     @apply flex min-h-screen flex-col;
+    @apply bg-secondary-default;
+    @apply selection:bg-primary-default;
+    @apply selection:text-secondary-default;
   }
 
   main {
     @apply flex-1;
   }
 
-  details > summary {
-    list-style: none;
-  }
-  details > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .button {
-    @apply flex items-center justify-center rounded-lg;
-    @apply bg-gradient-to-br from-emerald-900 via-emerald-800  to-emerald-600;
-    @apply py-3 px-8 text-base font-medium text-white;
-    @apply transition hover:opacity-80;
-    @apply focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1;
-    @apply disabled:cursor-not-allowed disabled:opacity-60;
+  h1 {
+    @apply text-h1;
   }
 }

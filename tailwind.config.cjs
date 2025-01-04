@@ -1,31 +1,61 @@
+import * as tokens from './figma.tokens.json';
+
+function mapTokens(tokens) {
+  const mappedTokens = {
+    borderRadius: {},
+    fontSize: {},
+    colors: {
+      primary: {},
+      secondary: {},
+      accent: {},
+      shadows: {},
+      border: {},
+    },
+  };
+
+  // Map borderRadius
+  if (tokens.core.borderRadius) {
+    for (const key in tokens.core.borderRadius) {
+      mappedTokens.borderRadius[key] = `${tokens.core.borderRadius[key].$value}px`;
+    }
+  }
+
+  // Map fontSizes
+  if (tokens.core.fontSizes) {
+    for (const key in tokens.core.fontSizes) {
+      mappedTokens.fontSize[key] = `${tokens.core.fontSizes[key].$value}px`;
+    }
+  }
+
+  // Map colors
+  if (tokens.light) {
+    for (const key in tokens.light) {
+      for (const subkey in tokens.light[key]) {
+        mappedTokens.colors[key][subkey] = tokens.light[key][subkey].$value;
+      }
+    }
+  }
+
+  return mappedTokens;
+}
+
+const mappedTokens = mapTokens(tokens);
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    container: {
-      center: true,
-      padding: "1.5rem",
-    },
+    ...mappedTokens,
     extend: {
-      keyframes: {
-        shake: {
-          "0%": { transform: "translate(1px, 1px) rotate(0deg)" },
-          "10%": { transform: "translate(-1px, -2px) rotate(-1deg)" },
-          "20%": { transform: "translate(-3px, 0px) rotate(1deg)" },
-          "30%": { transform: "translate(3px, 2px) rotate(0deg)" },
-          "40%": { transform: "translate(1px, -1px) rotate(1deg)" },
-          "50%": { transform: "translate(-1px, 2px) rotate(-1deg)" },
-          "60%": { transform: "translate(-3px, 1px) rotate(0deg)" },
-          "70%": { transform: "translate(3px, 1px) rotate(-1deg)" },
-          "80%": { transform: "translate(-1px, -1px) rotate(1deg)" },
-          "90%": { transform: "translate(1px, 2px) rotate(0deg)" },
-          "100%": { transform: "translate(1px, -2px) rotate(-1deg)" },
-        },
+      dropShadow: {
+        sm: '8px 10px 0 rgba(0, 0, 0, 0.25)',
+        md: '10px 12px 0 rgba(0, 0, 0, 0.25)',
+        lg: '16px 20px 0 rgba(0, 0, 0, 0.25)',
       },
-      animation: {
-        shake: "shake 0.5s infinite",
+      fontFamily: {
+        sans: ['Space Grotesk', 'sans'],
       },
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };

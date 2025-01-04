@@ -1,0 +1,16 @@
+---
+import { z } from "zod";
+import { ProductResult } from "../utils/schemas";
+import KeySwitchItem from "./KeySwitchItem.svelte";
+
+const ProductsResult = z.array(ProductResult);
+export interface Props {
+  products: z.infer<typeof ProductsResult>;
+}
+
+const { products } = Astro.props as Props;
+---
+
+<section class="flex flex-wrap gap-9 overflow-auto pb-4">
+  {products.map((product) => <KeySwitchItem product={product} />)}
+</section>

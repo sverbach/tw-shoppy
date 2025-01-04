@@ -1,9 +1,9 @@
 ---
-import type { z } from "zod";
-import type { ProductResult } from "../utils/schemas";
+import type { z } from 'zod';
+import type { ProductResult } from '../utils/schemas';
 
-import ShopifyImage from "./ShopifyImage.svelte";
-import Money from "./Money.svelte";
+import ShopifyImage from './ShopifyImage.svelte';
+import Money from './Money.svelte';
 
 export interface Props {
   product: z.infer<typeof ProductResult>;
@@ -13,7 +13,7 @@ const { product } = Astro.props as Props;
 
 <a
   href={`/products/${product?.handle}`}
-  class="group overflow-hidden rounded-lg border-l-orange-100 shadow hover:shadow-md"
+  class="border-l-orange-100 group overflow-hidden rounded-lg shadow hover:shadow-md"
 >
   <div class="relative">
     <ShopifyImage
@@ -30,9 +30,9 @@ const { product } = Astro.props as Props;
     `}
     />
     <div
-      class="absolute inset-0 z-10 grid items-end justify-items-center opacity-0 transition-all group-hover:bg-black/10 group-hover:opacity-100"
+      class="group-hover:bg-black/10 absolute inset-0 z-10 grid items-end justify-items-center opacity-0 transition-all group-hover:opacity-100"
     >
-      <button class="button w-full gap-3 rounded-none">
+      <button class="button rounded-none w-full gap-3">
         <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ const { product } = Astro.props as Props;
       </button>
     </div>
   </div>
-  <div class="flex justify-between py-6 px-5 text-zinc-700">
+  <div class="text-zinc-700 flex justify-between px-5 py-6">
     <h3 class="group-hover:underline">{product?.title}</h3>
     <p class="font-bold">
       <Money price={product?.variants.nodes[0].price} />

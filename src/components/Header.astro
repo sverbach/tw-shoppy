@@ -4,17 +4,17 @@ import CartIcon from "./CartIcon.svelte";
 ---
 
 <header class="sticky top-0 z-40">
-  <div class="border-b bg-white/70 py-3 backdrop-blur-2xl">
-    <nav class="container grid grid-cols-3 items-center">
+  <div class="bg-secondary-default/30 py-3 backdrop-blur-2xl">
+    <nav class="mx-10 grid grid-cols-3 items-center">
       <a href="/">
         <span class="sr-only">Logo</span>
         <Logo />
       </a>
-      <h1
-        class="flex justify-center text-sm font-semibold text-gray-900 sm:text-xl"
-      >
-        Astro 🧑‍🚀 Shopify
-      </h1>
+      <ul class="flex justify-center gap-6">
+        <li>All products</li>
+        <li>Switches</li>
+        <li>About</li>
+      </ul>
       <div class="justify-self-end">
         <CartIcon client:load />
       </div>

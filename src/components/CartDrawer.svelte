@@ -1,28 +1,21 @@
 <script lang="ts">
   import { run } from 'svelte/legacy';
 
-  import { fade, fly } from "svelte/transition";
-  import {
-    cart,
-    isCartDrawerOpen,
-    removeCartItems,
-    isCartUpdating,
-  } from "../stores/cart";
-  import ShopifyImage from "./ShopifyImage.svelte";
-  import Money from "./Money.svelte";
-  import { clickOutside } from "../utils/click-outside";
+  import { fade, fly } from 'svelte/transition';
+  import { cart, isCartDrawerOpen, removeCartItems, isCartUpdating } from '../stores/cart';
+  import ShopifyImage from './ShopifyImage.svelte';
+  import Money from './Money.svelte';
+  import { clickOutside } from '../utils/click-outside';
 
   let cartDrawerEl: HTMLDivElement = $state();
 
   // Add classes to cart line items if cart is updating
-  let cartIsUpdatingClass = $derived($isCartUpdating
-    ? "opacity-50 pointer-events-none"
-    : "");
+  let cartIsUpdatingClass = $derived($isCartUpdating ? 'opacity-50 pointer-events-none' : '');
 
   // Add focus to cart drawer when it opens
   run(() => {
     if ($isCartDrawerOpen) {
-      document.querySelector("body")?.classList.add("overflow-hidden");
+      document.querySelector('body')?.classList.add('overflow-hidden');
       cartDrawerEl?.focus();
     }
   });
@@ -32,29 +25,24 @@
   }
 
   function closeCartDrawer() {
-    document.querySelector("body")?.classList.remove("overflow-hidden");
+    document.querySelector('body')?.classList.remove('overflow-hidden');
     isCartDrawerOpen.set(false);
   }
 
   function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       closeCartDrawer();
     }
   }
 </script>
 
 {#if $isCartDrawerOpen}
-  <div
-    class="relative z-50"
-    aria-labelledby="slide-over-title"
-    role="dialog"
-    aria-modal="true"
-  >
+  <div class="relative z-50" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
     <div
       in:fade={{ duration: 500 }}
       out:fade={{ duration: 500 }}
-      class="fixed inset-0 bg-slate-400/50 backdrop-blur-sm transition-opacity"
-></div>
+      class="bg-slate-400/50 fixed inset-0 backdrop-blur-sm transition-opacity"
+    ></div>
 
     <div class="fixed inset-0 overflow-hidden">
       <div class="absolute inset-0 overflow-hidden">
@@ -68,18 +56,15 @@
           <div
             in:fly={{ duration: 500, x: 500, opacity: 100 }}
             out:fly={{ duration: 500, x: 500, opacity: 100 }}
-            class="pointer-events-auto w-screen max-w-lg max-h-screen bg-white"
+            class="bg-white pointer-events-auto max-h-screen w-screen max-w-lg"
           >
-            <div class="flex flex-col min-h-full max-h-screen">
-              <div class="flex items-start justify-between shadow-sm p-5">
-                <h2
-                  class="text-2xl flex gap-4 items-center font-bold text-zinc-800"
-                  id="slide-over-title"
-                >
+            <div class="flex max-h-screen min-h-full flex-col">
+              <div class="flex items-start justify-between p-5 shadow-sm">
+                <h2 class="text-2xl text-zinc-800 flex items-center gap-4 font-bold" id="slide-over-title">
                   Your cart
                   {#if $isCartUpdating}
                     <svg
-                      class="animate-spin -ml-1 mr-3 h-4 w-4"
+                      class="-ml-1 mr-3 h-4 w-4 animate-spin"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -104,7 +89,7 @@
                   <button
                     onclick={() => closeCartDrawer()}
                     type="button"
-                    class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                    class="text-gray-400 hover:text-gray-500 -m-2 p-2"
                   >
                     <span class="sr-only">Close panel</span>
                     <!-- Heroicon name: outline/x-mark -->
@@ -117,11 +102,7 @@
                       stroke="currentColor"
                       aria-hidden="true"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
@@ -131,15 +112,10 @@
                 <div class="px-5">
                   {#if $cart && $cart.lines?.nodes.length > 0}
                     <!-- svelte-ignore a11y_no_redundant_roles -->
-                    <ul
-                      role="list"
-                      class="divide-y divide-zinc-100 {cartIsUpdatingClass}"
-                    >
+                    <ul role="list" class="divide-zinc-100 divide-y {cartIsUpdatingClass}">
                       {#each $cart.lines?.nodes as item}
-                        <li class="grid py-8 grid-cols-12 gap-3">
-                          <div
-                            class="overflow-hidden rounded-lg col-span-3 lg:col-span-2"
-                          >
+                        <li class="grid grid-cols-12 gap-3 py-8">
+                          <div class="col-span-3 overflow-hidden rounded-lg lg:col-span-2">
                             <ShopifyImage
                               image={item.merchandise.image}
                               classList="object-cover h-full object-center aspect-1"
@@ -147,11 +123,9 @@
                               loading="lazy"
                             />
                           </div>
-                          <div
-                            class="col-span-7 lg:col-span-8 flex flex-col gap-2"
-                          >
+                          <div class="col-span-7 flex flex-col gap-2 lg:col-span-8">
                             <a
-                              class="hover:underline w-fit"
+                              class="w-fit hover:underline"
                               href={`/products/${item.merchandise.product.handle}`}
                             >
                               {item.merchandise.product.title}
@@ -160,9 +134,7 @@
                               <Money price={item.cost.amountPerQuantity} />
                             </p>
                           </div>
-                          <div
-                            class="col-span-2 items-end flex justify-between flex-col"
-                          >
+                          <div class="col-span-2 flex flex-col items-end justify-between">
                             <button
                               onclick={() => {
                                 removeItem(item.id);
@@ -176,7 +148,7 @@
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-5 h-5"
+                                class="h-5 w-5"
                               >
                                 <path
                                   stroke-linecap="round"
@@ -195,12 +167,9 @@
                       {/each}
                     </ul>
                   {:else}
-                    <div class="text-center mt-20">
+                    <div class="mt-20 text-center">
                       <p class="text-gray-500">Your cart is empty</p>
-                      <a
-                        href="/"
-                        class="font-semibold text-emerald-900 hover:text-emerald-700"
-                      >
+                      <a href="/" class="text-emerald-900 hover:text-emerald-700 font-semibold">
                         Continue Shopping
                         <span aria-hidden="true"> &rarr;</span>
                       </a>
@@ -211,21 +180,14 @@
 
               <div class="">
                 {#if $cart && $cart.lines?.nodes.length > 0}
-                  <div class="border-t border-zinc-200 py-6 px-4 sm:px-6">
-                    <div
-                      class="flex justify-between text-base font-medium text-gray-900"
-                    >
+                  <div class="border-zinc-200 border-t px-4 py-6 sm:px-6">
+                    <div class="text-base text-gray-900 flex justify-between font-medium">
                       <p>Subtotal</p>
                       <p>
-                        <Money
-                          price={$cart.cost.subtotalAmount}
-                          showCurrency={true}
-                        />
+                        <Money price={$cart.cost.subtotalAmount} showCurrency={true} />
                       </p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">
-                      Shipping and taxes calculated at checkout.
-                    </p>
+                    <p class="text-sm text-gray-500 mt-0.5">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
                       <a href={$cart.checkoutUrl} class="button">Checkout</a>
                     </div>

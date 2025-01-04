@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { CartResult, ProductResult } from "./schemas";
-import { config } from "./config";
+import { z } from 'zod';
+import { CartResult, ProductResult } from './schemas';
+import { config } from './config';
 import {
   ProductsQuery,
   ProductByHandleQuery,
@@ -9,13 +9,13 @@ import {
   GetCartQuery,
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
-} from "./graphql";
+} from './graphql';
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
 const makeShopifyRequest = async (
   query: string,
   variables: Record<string, unknown> = {},
-  buyerIP: string = ""
+  buyerIP: string = ''
 ) => {
   const isSSR = import.meta.env.SSR;
   const apiUrl = `https://${config.shopifyShop}/api/${config.apiVersion}/graphql.json`;
@@ -30,22 +30,22 @@ const makeShopifyRequest = async (
 
     const { privateShopifyAccessToken, publicShopifyAccessToken } = config;
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {},
       body: JSON.stringify({ query, variables }),
     };
     // Check if the Shopify request is made from the server or the client
     if (isSSR) {
       options.headers = {
-        "Content-Type": "application/json",
-        "Shopify-Storefront-Private-Token": privateShopifyAccessToken,
-        "Shopify-Storefront-Buyer-IP": buyerIP,
+        'Content-Type': 'application/json',
+        'Shopify-Storefront-Private-Token': privateShopifyAccessToken,
+        'Shopify-Storefront-Buyer-IP': buyerIP,
       };
       return options;
     }
     options.headers = {
-      "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token": publicShopifyAccessToken,
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': publicShopifyAccessToken,
     };
 
     return options;
@@ -60,28 +60,21 @@ const makeShopifyRequest = async (
 
   const json = await response.json();
   if (json.errors) {
-    throw new Error(json.errors.map((e: Error) => e.message).join("\n"));
+    throw new Error(json.errors.map((e: Error) => e.message).join('\n'));
   }
 
   return json.data;
 };
 
 // Get all products or a limited number of products (default: 10)
-export const getProducts = async (options: {
-  limit?: number;
-  buyerIP: string;
-}) => {
+export const getProducts = async (options: { limit?: number; buyerIP: string }) => {
   const { limit = 10, buyerIP } = options;
 
-  const data = await makeShopifyRequest(
-    ProductsQuery,
-    { first: limit },
-    buyerIP
-  );
+  const data = await makeShopifyRequest(ProductsQuery, { first: limit }, buyerIP);
   const { products } = data;
 
   if (!products) {
-    throw new Error("No products found");
+    throw new Error('No products found');
   }
 
   const productsList = products.edges.map((edge: any) => edge.node);
@@ -92,17 +85,10 @@ export const getProducts = async (options: {
 };
 
 // Get a product by its handle (slug)
-export const getProductByHandle = async (options: {
-  handle: string;
-  buyerIP: string;
-}) => {
+export const getProductByHandle = async (options: { handle: string; buyerIP: string }) => {
   const { handle, buyerIP } = options;
 
-  const data = await makeShopifyRequest(
-    ProductByHandleQuery,
-    { handle },
-    buyerIP
-  );
+  const data = await makeShopifyRequest(ProductByHandleQuery, { handle }, buyerIP);
   const { product } = data;
 
   const parsedProduct = ProductResult.parse(product);
@@ -110,10 +96,7 @@ export const getProductByHandle = async (options: {
   return parsedProduct;
 };
 
-export const getProductRecommendations = async (options: {
-  productId: string;
-  buyerIP: string;
-}) => {
+export const getProductRecommendations = async (options: { productId: string; buyerIP: string }) => {
   const { productId, buyerIP } = options;
   const data = await makeShopifyRequest(
     ProductRecommendationsQuery,
@@ -141,11 +124,7 @@ export const createCart = async (id: string, quantity: number) => {
 };
 
 // Add a line item to an existing cart (by ID) and return the updated cart object
-export const addCartLines = async (
-  id: string,
-  merchandiseId: string,
-  quantity: number
-) => {
+export const addCartLines = async (id: string, merchandiseId: string, quantity: number) => {
   const data = await makeShopifyRequest(AddCartLinesMutation, {
     cartId: id,
     merchandiseId,

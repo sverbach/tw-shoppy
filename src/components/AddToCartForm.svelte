@@ -1,7 +1,7 @@
 <script lang="ts">
   import { preventDefault } from 'svelte/legacy';
 
-  import { addCartItem, isCartUpdating, cart } from "../stores/cart";
+  import { addCartItem, isCartUpdating, cart } from '../stores/cart';
 
   interface Props {
     variantId: string;
@@ -12,11 +12,10 @@
   let { variantId, variantQuantityAvailable, variantAvailableForSale }: Props = $props();
 
   // Check if the variant is already in the cart and if there are any units left
-  let variantInCart =
-    $derived($cart &&
-    $cart.lines?.nodes.filter((item) => item.merchandise.id === variantId)[0]);
-  let noQuantityLeft =
-    $derived(variantInCart && variantQuantityAvailable <= variantInCart?.quantity);
+  let variantInCart = $derived(
+    $cart && $cart.lines?.nodes.filter((item) => item.merchandise.id === variantId)[0]
+  );
+  let noQuantityLeft = $derived(variantInCart && variantQuantityAvailable <= variantInCart?.quantity);
 
   function addToCart(e: Event) {
     const form = e.target as HTMLFormElement;
@@ -41,19 +40,12 @@
   >
     {#if $isCartUpdating}
       <svg
-        class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+        class="text-white -ml-1 mr-3 h-5 w-5 animate-spin"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        />
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
         <path
           class="opacity-75"
           fill="currentColor"
@@ -68,7 +60,7 @@
     {/if}
   </button>
   {#if noQuantityLeft}
-    <div class="text-center text-red-600">
+    <div class="text-red-600 text-center">
       <small>All units left are in your cart</small>
     </div>
   {/if}

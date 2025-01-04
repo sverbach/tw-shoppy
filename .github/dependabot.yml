@@ -12,5 +12,5 @@ updates:
       patch-minor:
         applies-to: version-updates
         update-types:
-        - 'minor'
-        - 'patch'
+          - 'minor'
+          - 'patch'

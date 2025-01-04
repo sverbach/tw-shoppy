@@ -1,16 +1,16 @@
 ---
 const accordions = [
   {
-    title: "Shipping",
-    icon: "truck",
+    title: 'Shipping',
+    icon: 'truck',
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam possimus fuga dolor rerum dicta, ipsum laboriosam est totam iusto alias incidunt cum tempore aliquid aliquam error quisquam ipsam asperiores! Iste?",
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam possimus fuga dolor rerum dicta, ipsum laboriosam est totam iusto alias incidunt cum tempore aliquid aliquam error quisquam ipsam asperiores! Iste?',
   },
   {
-    title: "Care instructions",
-    icon: "care",
+    title: 'Care instructions',
+    icon: 'care',
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam possimus fuga dolor rerum dicta, ipsum laboriosam est totam iusto alias incidunt cum tempore aliquid aliquam error quisquam ipsam asperiores! Iste?",
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam possimus fuga dolor rerum dicta, ipsum laboriosam est totam iusto alias incidunt cum tempore aliquid aliquam error quisquam ipsam asperiores! Iste?',
   },
 ];
 ---
@@ -18,16 +18,10 @@ const accordions = [
 <div class="grid">
   {
     accordions.map((accordion, index) => (
-      <details
-        class:list={[
-          "group",
-          "border-t",
-          { "border-b": index === accordions.length - 1 },
-        ]}
-      >
-        <summary class="flex cursor-pointer items-center justify-between py-3 px-1 font-bold text-zinc-700">
+      <details class:list={['group', 'border-t', { 'border-b': index === accordions.length - 1 }]}>
+        <summary class="text-zinc-700 flex cursor-pointer items-center justify-between px-1 py-3 font-bold">
           <div class="flex items-center gap-2">
-            {accordion.icon === "truck" && (
+            {accordion.icon === 'truck' && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -43,7 +37,7 @@ const accordions = [
                 />
               </svg>
             )}
-            {accordion.icon === "care" && (
+            {accordion.icon === 'care' && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -70,15 +64,11 @@ const accordions = [
               stroke="currentColor"
               class="h-4 w-4"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>
           </span>
         </summary>
-        <div class="p-4 text-sm text-zinc-600">{accordion.content}</div>
+        <div class="text-sm text-zinc-600 p-4">{accordion.content}</div>
       </details>
     ))
   }
