@@ -85,7 +85,14 @@ fragment productFragment on Product {
 export const ProductsQuery = `#graphql
 query ($first: Int!) {
     products(first: $first) {
+      pageInfo {
+        endCursor,
+        startCursor,
+        hasNextPage,
+        hasPreviousPage
+      }
       edges {
+        cursor
         node {
           ...productFragment
         }

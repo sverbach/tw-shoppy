@@ -12,16 +12,14 @@
 
 <a
   href={`/switches/${product?.handle}`}
-  class="relative h-[100px] w-[100px] rounded-lg border-4 border-solid border-border-default outline-border-default drop-shadow-sm transition-all focus-within:outline focus-within:drop-shadow-sm hover:drop-shadow-md focus:drop-shadow-md"
+  class="relative h-[100px] w-[100px] rounded-lg border-4 border-solid border-primary-default outline-primary-default drop-shadow-xs transition-all focus-within:outline focus-within:drop-shadow-sm hover:drop-shadow-sm focus:drop-shadow-sm"
   tabindex="0"
   role="button"
 >
-  <div
-    class="absolute h-full w-full rounded-lg bg-secondary-muted/40 transition-colors hover:bg-secondary-muted/20 focus:bg-secondary-muted/20"
-  ></div>
+  <div class="absolute z-0 h-full w-full rounded-[5px] bg-secondary-default"></div>
   {#if product}
     <ShopifyImage
-      classList="overflow-hidden h-full object-cover"
+      classList="absolute z-10 overflow-hidden h-full object-cover"
       loading="eager"
       image={product.images.nodes[0]}
       sizes={`100px`}

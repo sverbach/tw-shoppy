@@ -48,9 +48,10 @@ module.exports = {
     ...mappedTokens,
     extend: {
       dropShadow: {
-        sm: '8px 10px 0 rgba(0, 0, 0, 0.25)',
-        md: '10px 12px 0 rgba(0, 0, 0, 0.25)',
-        lg: '16px 20px 0 rgba(0, 0, 0, 0.25)',
+        xs: '4px 4px 0 rgba(0, 0, 0, 1)',
+        sm: '6px 6px 0 rgba(0, 0, 0, 1)',
+        md: '10px 12px 0 rgba(0, 0, 0, 1)',
+        lg: '16px 20px 0 rgba(0, 0, 0, 1)',
       },
       fontFamily: {
         sans: ['Space Grotesk', 'sans'],

@@ -8,7 +8,7 @@
     },
     "fontSizes": {
       "h1": {
-        "$value": "100",
+        "$value": "112",
         "$type": "fontSizes"
       },
       "h2": {

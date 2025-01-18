@@ -1,23 +1,25 @@
 ---
-import Logo from "./Logo.astro";
-import CartIcon from "./CartIcon.svelte";
+import Logo from './Logo.astro';
+import CartIcon from './CartIcon.svelte';
+
+const { url } = Astro.request;
+const currentPath = new URL(url).pathname;
+console.log('hello', currentPath);
 ---
 
-<header class="sticky top-0 z-40">
-  <div class="bg-secondary-default/30 py-3 backdrop-blur-2xl">
-    <nav class="mx-10 grid grid-cols-3 items-center">
-      <a href="/">
-        <span class="sr-only">Logo</span>
-        <Logo />
-      </a>
-      <ul class="flex justify-center gap-6">
-        <li>All products</li>
-        <li>Switches</li>
-        <li>About</li>
-      </ul>
-      <div class="justify-self-end">
-        <CartIcon client:load />
-      </div>
-    </nav>
-  </div>
+<header class="sticky top-0 z-40 bg-secondary-default py-14">
+  <nav class="flex justify-between">
+    <div class="min-w-[200px]"></div>
+    <ul class="flex max-w-[1060px] flex-1 select-none gap-6 text-h2 font-medium">
+      <li class={currentPath === '/switches' ? 'underline' : 'hover:underline'}>
+        <a href="/switches">switches</a>
+      </li>
+      <li class={currentPath === '/about' ? 'underline' : 'hover:underline'}>
+        <a href="/about">about</a>
+      </li>
+      <li>[p]rofile</li>
+      <li>[c]art</li>
+    </ul>
+    <div class="min-w-[200px]"></div>
+  </nav>
 </header>

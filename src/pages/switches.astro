@@ -1,13 +1,13 @@
 ---
-import { getProducts } from "./../utils/shopify";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Products from "../components/Products.astro";
-import { setCache } from "../utils/cache";
-import KeySwitchItemList from "../components/KeySwitchItemList.astro";
+import { getProducts } from './../utils/shopify';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Products from '../components/Products.astro';
+import { setCache } from '../utils/cache';
+import KeySwitchItemList from '../components/KeySwitchItemList.astro';
 
-const title = "Key switches";
+const title = 'Key switches';
 const headers = Astro.request.headers;
-const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
+const ip = headers.get('x-vercel-forwarded-for') || Astro.clientAddress;
 const products = await getProducts({ limit: 250, buyerIP: ip });
 
 setCache.short(Astro);
@@ -15,8 +15,11 @@ setCache.short(Astro);
 
 <BaseLayout title={title}>
   <div class="flex justify-center">
-    <div class="flex max-w-screen-xl flex-col gap-28">
-      <h1 class="font-sans font-bold">Key switches</h1>
+    <div class="flex max-w-screen-xl flex-col gap-2">
+      <div class="flex items-baseline gap-8">
+        <h1 class="select-none truncate font-sans text-h1 font-bold">Key switches</h1>
+        <p class="select-none text-h2">({products.length}/{products.length})</p>
+      </div>
       <KeySwitchItemList products={products} />
     </div>
   </div>

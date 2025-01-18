@@ -77,6 +77,8 @@ export const getProducts = async (options: { limit?: number; buyerIP: string }) 
     throw new Error('No products found');
   }
 
+  console.log(data);
+
   const productsList = products.edges.map((edge: any) => edge.node);
   const ProductsResult = z.array(ProductResult);
   const parsedProducts = ProductsResult.parse(productsList);
