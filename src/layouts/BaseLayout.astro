@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Cart from '../components/Cart.svelte';
+import '../styles/global.css';
 
 export interface Props {
   title: string;
@@ -28,13 +29,10 @@ const { title, description = defaultDesc } = Astro.props as Props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <style is:global>
-      @import '../styles/global.css';
-    </style>
   </head>
   <body>
     <Header />
-    <div class="flex justify-between">
+    <div class="flex justify-center">
       <aside class="min-w-[200px]"></aside>
       <main class="max-w-[1060px] flex-1">
         <slot />
