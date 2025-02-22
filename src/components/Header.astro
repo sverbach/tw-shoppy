@@ -1,25 +1,19 @@
 ---
 import Logo from './Logo.astro';
 import CartIcon from './CartIcon.svelte';
-
-const { url } = Astro.request;
-const currentPath = new URL(url).pathname;
-console.log('hello', currentPath);
 ---
 
-<header class="sticky top-0 z-40 bg-secondary-default py-14">
-  <nav class="flex justify-between">
-    <div class="min-w-[200px]"></div>
-    <ul class="flex max-w-[1060px] flex-1 select-none gap-6 text-h2 font-medium">
-      <li class={currentPath === '/switches' ? 'underline' : 'hover:underline'}>
-        <a href="/switches">switches</a>
-      </li>
-      <li class={currentPath === '/about' ? 'underline' : 'hover:underline'}>
-        <a href="/about">about</a>
-      </li>
-      <li>[p]rofile</li>
-      <li>[c]art</li>
+<header class="sticky top-0 z-40">
+  <div class="h-4 bg-black"></div>
+  <nav class="grid grid-cols-3 gap-4">
+    <div
+      class="text-eggwhite col-start-2 flex justify-self-center rounded-b-lg bg-black px-12 py-4 font-medium"
+    >
+      tastaturwerk schaffhausen
+    </div>
+    <ul class="col-start-3 my-4 me-16 flex gap-16 justify-self-end font-medium">
+      <li>[b]asket</li>
+      <li>[o]rder</li>
     </ul>
-    <div class="min-w-[200px]"></div>
   </nav>
 </header>
