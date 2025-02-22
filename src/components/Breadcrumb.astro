@@ -4,7 +4,7 @@ const paths = new URL(url).pathname.split('/').filter((path) => !!path);
 const pathsIndexed = paths.map((path, index) => ({ path, isLast: index === paths.length - 1 }));
 ---
 
-<ul class="flex gap-6">
+<ul class="flex gap-6 font-medium">
   <li class="text-stone-500">keyboard parts</li>
   {
     pathsIndexed.map(({ path, isLast }) => (
