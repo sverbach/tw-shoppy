@@ -1,16 +1,36 @@
 ---
+import { routes } from '../utils/routes';
+
 const { url } = Astro.request;
 const paths = new URL(url).pathname.split('/').filter((path) => !!path);
-const pathsIndexed = paths.map((path, index) => ({ path, isLast: index === paths.length - 1 }));
+const pathsIndexed = paths.map((path, index) => ({
+  path,
+  isLast: index === paths.length - 1,
+  displayName: findDisplayNameOfBreadcrumb(path),
+}));
+
+function findDisplayNameOfBreadcrumb(path: string): string {
+  const children = routes
+    .map((r) => r.children)
+    .filter((route) => !!route)
+    .flat();
+
+  const childRouteMatch = children.find((c) => c.link === `/${path}`);
+  if (childRouteMatch) {
+    return childRouteMatch.title;
+  }
+
+  return routes.find((r) => r.link === `/${path}`)!.title;
+}
 ---
 
 <ul class="flex gap-6 font-medium">
-  <li class="text-stone-500">keyboard parts</li>
+  <li class="text-stone-500 select-none">all</li>
   {
-    pathsIndexed.map(({ path, isLast }) => (
+    pathsIndexed.map(({ path, isLast, displayName }) => (
       <>
-        <li class:list={[{ 'text-stone-500': !isLast }]}>></li>
-        <li class:list={[{ 'text-stone-500': !isLast }]}>{path}</li>
+        <li class:list={['hover:text-black', { 'text-stone-500 select-none': !isLast }]}>></li>
+        <li class:list={['hover:text-black', { 'text-stone-500 select-none': !isLast }]}>{displayName}</li>
       </>
     ))
   }

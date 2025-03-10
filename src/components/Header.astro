@@ -3,17 +3,17 @@ import Logo from './Logo.astro';
 import CartIcon from './CartIcon.svelte';
 ---
 
-<header class="sticky top-0 z-40">
+<header class="sticky top-0 z-40 backdrop-blur-sm">
   <div class="h-4 bg-black"></div>
   <nav class="grid grid-cols-3 gap-4">
     <div
-      class="text-eggwhite col-start-2 flex justify-self-center rounded-b-lg bg-black px-12 py-4 font-medium"
+      class="text-eggwhite col-start-2 flex justify-self-center rounded-b-lg bg-black px-12 py-5 font-medium"
     >
       tastaturwerk schaffhausen
     </div>
-    <ul class="col-start-3 my-4 me-16 flex gap-16 justify-self-end font-medium">
-      <li>[b]asket</li>
-      <li>[o]rder</li>
+    <ul class="col-start-3 my-5 me-20 flex gap-20 justify-self-end text-sm font-medium">
+      <li><button type="button" class="cursor-pointer">[b]asket</button></li>
+      <li><button type="button" class="cursor-pointer">[o]rder</button></li>
     </ul>
   </nav>
 </header>

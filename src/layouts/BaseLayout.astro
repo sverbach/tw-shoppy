@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import Cart from '../components/Cart.svelte';
 import '../styles/global.css';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import Background from '../components/Background.astro';
+import SideNav from '../components/SideNav.astro';
 
 export interface Props {
   title: string;
@@ -33,14 +35,15 @@ const { title, description = defaultDesc } = Astro.props as Props;
   </head>
   <body class="bg-eggwhite">
     <Header />
-    <div class="mt-12 flex justify-center">
-      <aside class="min-w-[200px]"></aside>
-      <main class="max-w-[1060px] flex-1">
+    <div class="mt-12 grid grid-cols-6 gap-10">
+      <SideNav />
+      <main class="col-span-4">
         <Breadcrumb />
         <slot />
       </main>
-      <aside class="min-w-[200px]"></aside>
+      <aside></aside>
     </div>
     <Cart client:visible />
+    <!-- <Background /> -->
   </body>
 </html>

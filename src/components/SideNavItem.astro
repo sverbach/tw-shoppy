@@ -1,0 +1,32 @@
+---
+import { z } from 'zod';
+import type { PageRoute } from './SideNav.astro';
+
+interface Props {
+  route: z.infer<typeof PageRoute>;
+  currentRoute: string;
+}
+
+const { route, currentRoute } = Astro.props as Props;
+---
+
+<>
+  <li>
+    <a
+      href={route.link}
+      class:list={['hover:text-black', { 'text-stone-500': !currentRoute.includes(route.link) }]}
+    >
+      {route.title}
+    </a>
+    {route.children 
+      ? <ul class="flex flex-col mt-1 gap-1 ms-4 text-sm">
+        {route.children.map(child => 
+          <li>
+            <a href={route.link + child.link} class:list={['hover:text-black', { 'text-stone-500': !currentRoute.includes(child.link) }]}>
+                {child.title}
+            </a>
+          </li>)}
+        </ul> 
+      : <></>}
+  </li>
+</>

@@ -6,7 +6,7 @@ import { setCache } from '../utils/cache';
 import KeySwitchItemList from '../components/KeySwitchItemList.astro';
 import Filters from '../components/Filters.astro';
 
-const title = 'Key switches';
+const title = 'Switches';
 const headers = Astro.request.headers;
 const ip = headers.get('x-vercel-forwarded-for') || Astro.clientAddress;
 const products = await getProducts({ limit: 250, buyerIP: ip });
@@ -16,9 +16,9 @@ setCache.short(Astro);
 
 <BaseLayout title={title}>
   <div class="flex justify-center">
-    <div class="flex max-w-screen-xl flex-col gap-24">
-      <h1 class="truncate text-9xl font-bold select-none">Key switches</h1>
-      <div>
+    <div class="flex max-w-screen-xl flex-col gap-16">
+      <h1 class="ms-[-5px] mt-[-5px] text-8xl font-bold">All switches</h1>
+      <div class="flex flex-col gap-6">
         <Filters />
         <KeySwitchItemList products={products} />
       </div>
