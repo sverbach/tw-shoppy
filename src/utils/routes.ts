@@ -32,6 +32,10 @@ export const routes: z.infer<typeof PageRoutes> = [
         link: '/he-switches',
         title: 'hall effect switches',
       },
+      {
+        link: '/low-profile-switches',
+        title: 'low profile switches',
+      },
     ],
   },
   {

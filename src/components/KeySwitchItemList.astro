@@ -12,6 +12,6 @@ let { products } = Astro.props as Props;
 products = [...products, ...products];
 ---
 
-<section class="flex flex-wrap gap-5 overflow-auto pt-4 pb-4">
+<section class="flex flex-wrap gap-3 overflow-auto pt-4 pb-4">
   {products.map((product) => <KeySwitchItem product={product} />)}
 </section>

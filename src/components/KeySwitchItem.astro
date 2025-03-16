@@ -17,7 +17,7 @@ const price = new Intl.NumberFormat('de-CH', {
 
 <a
   href={`/switches/${product!.handle}`}
-  class="flex h-[155px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm transition-colors hover:bg-black/80 hover:font-semibold hover:text-white"
+  class="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm transition-colors hover:bg-black/80 hover:font-semibold hover:text-white"
   tabindex="0"
   role="button"
 >
@@ -27,7 +27,7 @@ const price = new Intl.NumberFormat('de-CH', {
     image={product!.images.nodes[0]}
     sizes={`100px`}
   />
-  <div class="ms-1 flex flex-1 flex-col justify-between">
+  <div class="ms-1 flex flex-1 flex-col gap-1">
     <span class="max-h-[30px] overflow-hidden text-xs">{product!.title}</span>
     <div class="flex gap-1">
       <div
