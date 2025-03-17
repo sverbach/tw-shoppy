@@ -5,6 +5,7 @@ import Products from '../components/Products.astro';
 import { setCache } from '../utils/cache';
 import KeySwitchItemList from '../components/KeySwitchItemList.astro';
 import Filters from '../components/Filters.astro';
+import { Button } from '@/components/button';
 
 const title = 'Switches';
 const headers = Astro.request.headers;
@@ -19,6 +20,7 @@ setCache.short(Astro);
     <div class="flex max-w-screen-xl flex-col gap-16">
       <h1 class="ms-[-5px] mt-[-5px] text-8xl font-bold">All switches</h1>
       <div class="flex flex-col gap-6">
+        <Button>Some button</Button>
         <Filters />
         <KeySwitchItemList products={products} />
       </div>
