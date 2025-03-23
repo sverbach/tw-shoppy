@@ -21,22 +21,19 @@ import {
  * Variants for the multi-select component to handle different styles.
  * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
  */
-const multiSelectVariants = cva(
-  'm-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300',
-  {
-    variants: {
-      variant: {
-        default: 'border-foreground/10 text-foreground bg-card hover:bg-card/80',
-        secondary: 'border-foreground/10 bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        inverted: 'inverted',
-      },
+const multiSelectVariants = cva('m-1', {
+  variants: {
+    variant: {
+      default: 'border-foreground/10 text-foreground bg-card hover:bg-card/80',
+      secondary: 'border-foreground/10 bg-secondary text-secondary-foreground hover:bg-secondary/80',
+      destructive: 'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
+      inverted: 'inverted',
     },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }
-);
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 /**
  * Props for MultiSelect component
@@ -225,8 +222,8 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
               </div>
             ) : (
               <div className="mx-auto flex w-full items-center justify-between">
-                <span className="mx-3 text-sm text-black hover:text-white">{placeholder}</span>
-                <ChevronDown className="mx-2 h-4 cursor-pointer text-black" />
+                <span className="text-primary hover:text-primary-foreground mx-3 text-sm">{placeholder}</span>
+                <ChevronDown className="text-primary mx-2 h-4 cursor-pointer" />
               </div>
             )}
           </Button>
@@ -240,7 +237,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                 <CommandItem key="all" onSelect={toggleAll} className="cursor-pointer">
                   <div
                     className={cn(
-                      'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
+                      'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-xs border',
                       selectedValues.length === options.length
                         ? 'bg-primary text-primary-foreground'
                         : 'opacity-50 [&_svg]:invisible'
@@ -260,13 +257,13 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     >
                       <div
                         className={cn(
-                          'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
-                          isSelected ? 'bg-primary text-primary-foreground' : 'opacity-50 [&_svg]:invisible'
+                          'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-xs border',
+                          isSelected ? 'text-primary-foreground bg-black' : 'opacity-50 [&_svg]:invisible'
                         )}
                       >
-                        <CheckIcon className="h-4 w-4" />
+                        <CheckIcon className="text-primary-foreground h-4 w-4" />
                       </div>
-                      {option.icon && <option.icon className="text-muted-foreground mr-2 h-4 w-4" />}
+                      {option.icon && <option.icon className="text-primary-foreground mr-2 h-4 w-4" />}
                       <span>{option.label}</span>
                     </CommandItem>
                   );
