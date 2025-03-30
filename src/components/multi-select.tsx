@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { CheckIcon, XCircle, ChevronDown, XIcon } from 'lucide-react';
+import { CheckIcon, XCircle, ChevronDown, XIcon, ChevronUp } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/separator';
@@ -194,18 +194,11 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   {selectedValues.length > maxCount && (
                     <span
                       className={cn(
-                        'text-foreground border-foreground/1 bg-transparent',
+                        'text-background border-foreground/1 bg-transparent',
                         multiSelectVariants({ variant })
                       )}
                     >
-                      {`+ ${selectedValues.length - maxCount} more`}
-                      <XCircle
-                        className="ml-2 h-4 w-4 cursor-pointer"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          clearExtraOptions();
-                        }}
-                      />
+                      {`+ ${selectedValues.length - maxCount}`}
                     </span>
                   )}
                 </div>
@@ -223,12 +216,21 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             ) : (
               <div className="mx-auto flex w-full items-center justify-between">
                 <span className="text-primary hover:text-primary-foreground mx-3 text-sm">{placeholder}</span>
-                <ChevronDown className="text-primary mx-2 h-4 cursor-pointer" />
+                {isPopoverOpen ? (
+                  <ChevronUp className="text-primary mx-2 h-4 cursor-pointer" />
+                ) : (
+                  <ChevronDown className="text-primary mx-2 h-4 cursor-pointer" />
+                )}
               </div>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start" onEscapeKeyDown={() => setIsPopoverOpen(false)}>
+        <PopoverContent
+          className="w-64 p-0"
+          align="start"
+          sideOffset={8}
+          onEscapeKeyDown={() => setIsPopoverOpen(false)}
+        >
           <Command>
             <CommandInput placeholder="Search..." onKeyDown={handleInputKeyDown} />
             <CommandList>

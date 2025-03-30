@@ -22,6 +22,7 @@ function SomeFilter() {
       variant="inverted"
       animation={0}
       maxCount={2}
+      className="w-64"
     />
   );
 }
