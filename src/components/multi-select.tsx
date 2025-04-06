@@ -173,13 +173,13 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             onClick={handleTogglePopover}
             className={cn(
               'flex h-auto min-h-10 w-full items-center justify-between rounded-sm border-2 border-black p-1 [&_svg]:pointer-events-auto',
-              selectedValues.length > 0 ? 'bg-black' : 'bg-inherit',
+              selectedValues.length > 0 ? 'bg-black' : 'bg-inherit hover:border-inherit',
               className
             )}
           >
             {selectedValues.length > 0 ? (
               <div className="flex w-full items-center justify-between">
-                <div className="flex flex-wrap items-center">
+                <div className="flex flex-wrap items-center ps-2">
                   {selectedValues.slice(0, maxCount).map((value, index) => {
                     const option = options.find((o) => o.value === value);
                     const IconComponent = option?.icon;
@@ -215,7 +215,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
               </div>
             ) : (
               <div className="mx-auto flex w-full items-center justify-between">
-                <span className="text-primary hover:text-primary-foreground mx-3 text-sm">{placeholder}</span>
+                <span className="text-primary mx-3 text-sm">{placeholder}</span>
                 {isPopoverOpen ? (
                   <ChevronUp className="text-primary mx-2 h-4 cursor-pointer" />
                 ) : (
