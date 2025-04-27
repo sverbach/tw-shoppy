@@ -1,3 +1,4 @@
+import { string } from 'astro:schema';
 import { z } from 'zod';
 
 export const configSchema = z.object({
@@ -76,3 +77,26 @@ export const ProductResult = z
     featuredImage: ImageResult.nullable(),
   })
   .nullable();
+
+export const ProductFilterValue = z.object({
+  id: z.string(),
+  label: z.string(),
+  count: z.number(),
+  input: z.string(),
+});
+
+export const ProductFilter = z.object({
+  id: z.string(),
+  label: z.string(),
+  type: z.string(),
+  values: z.array(ProductFilterValue),
+});
+
+export const FiltersResult = z.object({
+  collection: z.object({
+    handle: z.string(),
+    products: z.object({
+      filters: z.array(ProductFilter),
+    }),
+  }),
+});

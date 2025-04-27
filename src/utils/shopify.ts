@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CartResult, ProductResult } from './schemas';
+import { CartResult, FiltersResult, ProductResult } from './schemas';
 import { config } from './config';
 import {
   ProductsQuery,
@@ -9,6 +9,7 @@ import {
   GetCartQuery,
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
+  GetFiltersQuery,
 } from './graphql';
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -77,8 +78,6 @@ export const getProducts = async (options: { limit?: number; buyerIP: string }) 
     throw new Error('No products found');
   }
 
-  console.log(data);
-
   const productsList = products.edges.map((edge: any) => edge.node);
   const ProductsResult = z.array(ProductResult);
   const parsedProducts = ProductsResult.parse(productsList);
@@ -113,6 +112,15 @@ export const getProductRecommendations = async (options: { productId: string; bu
   const parsedProducts = ProductsResult.parse(productRecommendations);
 
   return parsedProducts;
+};
+
+export const getProductFilters = async (options: { buyerIP: string }) => {
+  const { buyerIP } = options;
+  const data = await makeShopifyRequest(GetFiltersQuery, {}, buyerIP);
+
+  const parsed = FiltersResult.parse(data);
+
+  console.log(parsed.collection.products.filters.map((filter) => filter.values));
 };
 
 // Create a cart and add a line item to it and return the cart object

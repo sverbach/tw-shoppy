@@ -53,6 +53,9 @@ fragment productFragment on Product {
   id
   title
   handle
+  metafield(namespace: "switch", key: "brand") {
+    value
+  }
   images (first: 10) {
     nodes {
       url
@@ -118,6 +121,27 @@ export const ProductRecommendationsQuery = `#graphql
     }
   }
   ${PRODUCT_FRAGMENT}
+`;
+
+export const GetFiltersQuery = `#graphql
+  query Facets {
+    collection(handle: "key-switches") {
+      handle
+      products(first: 100) {
+        filters {
+          id
+          label
+          type
+          values {
+            id
+            label
+            count
+            input
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const GetCartQuery = `#graphql
