@@ -3,8 +3,8 @@
 
   import { fade, fly } from 'svelte/transition';
   import { cart, isCartDrawerOpen, removeCartItems, isCartUpdating } from '../stores/cart';
-  import ShopifyImage from './ShopifyImage.svelte';
-  import Money from './Money.svelte';
+  import ShopifyImage from './ShopifyImage';
+  import Money from './Mon./ShopifyImage.tsx
   import { clickOutside } from '../utils/click-outside';
 
   let cartDrawerEl: HTMLDivElement = $state();
@@ -41,7 +41,7 @@
     <div
       in:fade={{ duration: 500 }}
       out:fade={{ duration: 500 }}
-      class="bg-slate-400/50 fixed inset-0 backdrop-blur-sm transition-opacity"
+      class="fixed inset-0 bg-slate-400/50 backdrop-blur-sm transition-opacity"
     ></div>
 
     <div class="fixed inset-0 overflow-hidden">
@@ -56,15 +56,15 @@
           <div
             in:fly={{ duration: 500, x: 500, opacity: 100 }}
             out:fly={{ duration: 500, x: 500, opacity: 100 }}
-            class="bg-white pointer-events-auto max-h-screen w-screen max-w-lg"
+            class="pointer-events-auto max-h-screen w-screen max-w-lg bg-white"
           >
             <div class="flex max-h-screen min-h-full flex-col">
               <div class="flex items-start justify-between p-5 shadow-sm">
-                <h2 class="text-2xl text-zinc-800 flex items-center gap-4 font-bold" id="slide-over-title">
+                <h2 class="flex items-center gap-4 text-2xl font-bold text-zinc-800" id="slide-over-title">
                   Your cart
                   {#if $isCartUpdating}
                     <svg
-                      class="-ml-1 mr-3 h-4 w-4 animate-spin"
+                      class="mr-3 -ml-1 h-4 w-4 animate-spin"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -89,7 +89,7 @@
                   <button
                     onclick={() => closeCartDrawer()}
                     type="button"
-                    class="text-gray-400 hover:text-gray-500 -m-2 p-2"
+                    class="-m-2 p-2 text-gray-400 hover:text-gray-500"
                   >
                     <span class="sr-only">Close panel</span>
                     <!-- Heroicon name: outline/x-mark -->
@@ -112,7 +112,7 @@
                 <div class="px-5">
                   {#if $cart && $cart.lines?.nodes.length > 0}
                     <!-- svelte-ignore a11y_no_redundant_roles -->
-                    <ul role="list" class="divide-zinc-100 divide-y {cartIsUpdatingClass}">
+                    <ul role="list" class="divide-y divide-zinc-100 {cartIsUpdatingClass}">
                       {#each $cart.lines?.nodes as item}
                         <li class="grid grid-cols-12 gap-3 py-8">
                           <div class="col-span-3 overflow-hidden rounded-lg lg:col-span-2">
@@ -169,7 +169,7 @@
                   {:else}
                     <div class="mt-20 text-center">
                       <p class="text-gray-500">Your cart is empty</p>
-                      <a href="/" class="text-emerald-900 hover:text-emerald-700 font-semibold">
+                      <a href="/" class="font-semibold text-emerald-900 hover:text-emerald-700">
                         Continue Shopping
                         <span aria-hidden="true"> &rarr;</span>
                       </a>
@@ -180,14 +180,14 @@
 
               <div class="">
                 {#if $cart && $cart.lines?.nodes.length > 0}
-                  <div class="border-zinc-200 border-t px-4 py-6 sm:px-6">
-                    <div class="text-base text-gray-900 flex justify-between font-medium">
+                  <div class="border-t border-zinc-200 px-4 py-6 sm:px-6">
+                    <div class="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
                       <p>
                         <Money price={$cart.cost.subtotalAmount} showCurrency={true} />
                       </p>
                     </div>
-                    <p class="text-sm text-gray-500 mt-0.5">Shipping and taxes calculated at checkout.</p>
+                    <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
                       <a href={$cart.checkoutUrl} class="button">Checkout</a>
                     </div>

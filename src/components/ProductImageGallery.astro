@@ -1,7 +1,7 @@
 ---
 import { z } from 'zod';
 import { ImageResult } from '../utils/schemas';
-import ShopifyImage from './ShopifyImage.svelte';
+import ShopifyImage from './ShopifyImage.tsx';
 
 const ImagesResult = z.object({
   nodes: z.array(ImageResult),

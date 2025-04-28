@@ -1,4 +1,3 @@
-import { string } from 'astro:schema';
 import { z } from 'zod';
 
 export const configSchema = z.object({
@@ -91,6 +90,8 @@ export const ProductFilter = z.object({
   type: z.string(),
   values: z.array(ProductFilterValue),
 });
+
+export const ProductFilters = z.array(ProductFilter);
 
 export const FiltersResult = z.object({
   collection: z.object({

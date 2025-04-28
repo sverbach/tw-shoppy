@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MultiSelect } from '@/components/multi-select';
-import { Cat, Dog, Fish, Rabbit, Turtle } from 'lucide-react';
 
 const frameworksList = [
   { value: 'react', label: 'React' },
@@ -10,7 +9,7 @@ const frameworksList = [
   { value: 'ember', label: 'Ember' },
 ];
 
-function SomeFilter() {
+export function SomeFilter() {
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>(['react', 'angular']);
 
   return (
@@ -26,5 +25,3 @@ function SomeFilter() {
     />
   );
 }
-
-export default SomeFilter;

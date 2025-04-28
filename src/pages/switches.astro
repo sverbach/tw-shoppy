@@ -1,17 +1,14 @@
 ---
 import { getProductFilters, getProducts } from './../utils/shopify';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Products from '../components/Products.astro';
 import { setCache } from '../utils/cache';
-import KeySwitchItemList from '../components/KeySwitchItemList.astro';
-import Filters from '../components/Filters.astro';
-import { Button } from '@/components/button';
+import { KeySwitchSection } from '@/components/KeySwitchSection';
 
 const title = 'Switches';
 const headers = Astro.request.headers;
 const ip = headers.get('x-vercel-forwarded-for') || Astro.clientAddress;
 const products = await getProducts({ limit: 250, buyerIP: ip });
-await getProductFilters({ buyerIP: ip });
+const filters = await getProductFilters({ buyerIP: ip });
 
 setCache.short(Astro);
 ---
@@ -21,8 +18,7 @@ setCache.short(Astro);
     <div class="flex max-w-screen-xl flex-col gap-16">
       <h1 class="ms-[-5px] mt-[-5px] text-8xl font-bold">All switches</h1>
       <div class="flex flex-col gap-6">
-        <Filters />
-        <KeySwitchItemList products={products} />
+        <KeySwitchSection filters={filters} products={products} buyerIP={ip} client:load />
       </div>
     </div>
   </div>

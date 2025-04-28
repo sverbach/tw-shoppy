@@ -118,9 +118,7 @@ export const getProductFilters = async (options: { buyerIP: string }) => {
   const { buyerIP } = options;
   const data = await makeShopifyRequest(GetFiltersQuery, {}, buyerIP);
 
-  const parsed = FiltersResult.parse(data);
-
-  console.log(parsed.collection.products.filters.map((filter) => filter.values));
+  return FiltersResult.parse(data).collection.products.filters;
 };
 
 // Create a cart and add a line item to it and return the cart object
