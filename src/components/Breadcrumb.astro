@@ -20,7 +20,7 @@ function findDisplayNameOfBreadcrumb(path: string): string {
     return childRouteMatch.title;
   }
 
-  return routes.find((r) => r.link === `/${path}`)!.title;
+  return routes.find((r) => r.link === `/${path}`)?.title ?? '';
 }
 ---
 

@@ -86,8 +86,9 @@ fragment productFragment on Product {
 `;
 
 export const ProductsQuery = `#graphql
-query ($first: Int!) {
-    products(first: $first) {
+query($first: Int!, $filters: [ProductFilter!]) {
+  collection(handle: "key-switches") {
+    products(first: $first, filters: $filters) {
       pageInfo {
         endCursor,
         startCursor,
@@ -102,7 +103,8 @@ query ($first: Int!) {
       }
     }
   }
-  ${PRODUCT_FRAGMENT}
+}
+${PRODUCT_FRAGMENT}
 `;
 
 export const ProductByHandleQuery = `#graphql

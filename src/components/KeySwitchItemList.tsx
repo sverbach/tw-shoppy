@@ -12,18 +12,21 @@ export interface Props {
 }
 
 export function KeySwitchItemList({ initialProducts, buyerIP }: Props) {
+  const [loading, setLoading] = useState(false);
   const { filter } = useFilter();
   const [products, setProducts] = useState<z.infer<typeof ProductsResult>>(initialProducts);
 
   useEffect(() => {
-    if (filter === '') {
+    if (filter.length === 0) {
       setProducts(initialProducts);
       return;
     }
 
     async function loadProducts() {
-      const products = await getProducts({ limit: 250, buyerIP }); // todo add filter in here somehow
+      setLoading(true);
+      const products = await getProducts({ limit: 250, buyerIP, filters: filter });
       setProducts(products);
+      setLoading(false);
     }
 
     loadProducts();
@@ -31,9 +34,13 @@ export function KeySwitchItemList({ initialProducts, buyerIP }: Props) {
 
   return (
     <section className="flex flex-wrap gap-3 overflow-auto pt-4 pb-4">
-      {products.map((product) => (
-        <KeySwitchItem product={product} />
-      ))}
+      {loading ? (
+        <div>loading...</div>
+      ) : (
+        products
+          .filter((product) => !!product)
+          .map((product) => <KeySwitchItem key={product.id} product={product} />)
+      )}
     </section>
   );
 }

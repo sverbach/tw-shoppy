@@ -68,11 +68,20 @@ const makeShopifyRequest = async (
 };
 
 // Get all products or a limited number of products (default: 10)
-export const getProducts = async (options: { limit?: number; buyerIP: string }) => {
-  const { limit = 10, buyerIP } = options;
+export const getProducts = async (options: { limit?: number; buyerIP: string; filters?: string[] }) => {
+  const { limit = 10, buyerIP, filters = [] } = options;
 
-  const data = await makeShopifyRequest(ProductsQuery, { first: limit }, buyerIP);
-  const { products } = data;
+  const data = await makeShopifyRequest(
+    ProductsQuery,
+    {
+      first: limit,
+      filters: filters.map((filter) => JSON.parse(filter)),
+    },
+    buyerIP
+  );
+  const {
+    collection: { products },
+  } = data;
 
   if (!products) {
     throw new Error('No products found');
