@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { ProductResult } from '../utils/schemas';
 import { KeySwitchItem } from './KeySwitchItem';
 import { useFilter } from './ProductsFilterContext';
-import { useEffect, useState } from 'react';
 import { getProducts } from '@/utils/shopify';
+import { useQuery } from '@tanstack/react-query';
 
 const ProductsResult = z.array(ProductResult);
 export interface Props {
@@ -12,32 +12,28 @@ export interface Props {
 }
 
 export function KeySwitchItemList({ initialProducts, buyerIP }: Props) {
-  const [loading, setLoading] = useState(false);
   const { filter } = useFilter();
-  const [products, setProducts] = useState<z.infer<typeof ProductsResult>>(initialProducts);
 
-  useEffect(() => {
+  async function loadProducts() {
     if (filter.length === 0) {
-      setProducts(initialProducts);
-      return;
+      return initialProducts;
     }
 
-    async function loadProducts() {
-      setLoading(true);
-      const products = await getProducts({ limit: 250, buyerIP, filters: filter });
-      setProducts(products);
-      setLoading(false);
-    }
+    return await getProducts({ limit: 250, buyerIP, filters: filter });
+  }
 
-    loadProducts();
-  }, [filter, initialProducts]);
+  const { isLoading, data } = useQuery({
+    queryKey: ['switches', filter],
+    queryFn: () => loadProducts(),
+    staleTime: 30000,
+  });
 
   return (
     <section className="flex flex-wrap gap-3 overflow-auto pt-4 pb-4">
-      {loading ? (
+      {isLoading || !data ? (
         <div>loading...</div>
       ) : (
-        products
+        data
           .filter((product) => !!product)
           .map((product) => <KeySwitchItem key={product.id} product={product} />)
       )}
