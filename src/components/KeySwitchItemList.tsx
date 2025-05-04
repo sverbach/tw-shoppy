@@ -1,29 +1,22 @@
-import { z } from 'zod';
-import { ProductResult } from '../utils/schemas';
 import { KeySwitchItem } from './KeySwitchItem';
-import { useFilter } from './ProductsFilterContext';
+import { useFilters, useSort } from './contexts';
 import { getProducts } from '@/utils/shopify';
 import { useQuery } from '@tanstack/react-query';
 
-const ProductsResult = z.array(ProductResult);
 export interface Props {
-  initialProducts: z.infer<typeof ProductsResult>;
   buyerIP: string;
 }
 
-export function KeySwitchItemList({ initialProducts, buyerIP }: Props) {
-  const { filter } = useFilter();
+export function KeySwitchItemList({ buyerIP }: Props) {
+  const { filters } = useFilters();
+  const { sort } = useSort();
 
   async function loadProducts() {
-    if (filter.length === 0) {
-      return initialProducts;
-    }
-
-    return await getProducts({ limit: 250, buyerIP, filters: filter });
+    return await getProducts({ limit: 250, buyerIP, filters, sort });
   }
 
   const { isLoading, data } = useQuery({
-    queryKey: ['switches', filter],
+    queryKey: ['switches', filters, sort.key, sort.ascending],
     queryFn: () => loadProducts(),
     staleTime: 30000,
   });

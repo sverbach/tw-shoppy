@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ProductCollectionSortKeys } from './graphql';
 
 export const configSchema = z.object({
   shopifyShop: z.string(),
@@ -100,4 +101,20 @@ export const FiltersResult = z.object({
       filters: z.array(ProductFilter),
     }),
   }),
+});
+
+export const SortKey = z.enum([
+  'BEST_SELLING',
+  'COLLECTION_DEFAULT',
+  'CREATED',
+  'ID',
+  'MANUAL',
+  'PRICE',
+  'RELEVANCE',
+  'TITLE',
+]);
+
+export const Sort = z.object({
+  key: SortKey,
+  ascending: z.boolean(),
 });

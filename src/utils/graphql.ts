@@ -86,9 +86,9 @@ fragment productFragment on Product {
 `;
 
 export const ProductsQuery = `#graphql
-query($first: Int!, $filters: [ProductFilter!]) {
+query($first: Int!, $filters: [ProductFilter!], $sortKey: ProductCollectionSortKeys!, $reverse: Boolean!) {
   collection(handle: "key-switches") {
-    products(first: $first, filters: $filters) {
+    products(first: $first, filters: $filters, sortKey: $sortKey, reverse: $reverse) {
       pageInfo {
         endCursor,
         startCursor,
@@ -199,3 +199,14 @@ export const RemoveCartLinesMutation = `#graphql
   }
   ${CART_FRAGMENT}
 `;
+
+export enum ProductCollectionSortKeys {
+  BestSelling = 'BEST_SELLING',
+  CollectionDefault = 'COLLECTION_DEFAULT',
+  Created = 'CREATED',
+  Id = 'ID',
+  Manual = 'MANUAL',
+  Price = 'PRICE',
+  Relevance = 'RELEVANCE',
+  Title = 'TITLE',
+}

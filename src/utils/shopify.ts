@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CartResult, FiltersResult, ProductResult } from './schemas';
+import { CartResult, FiltersResult, ProductResult, Sort, SortKey } from './schemas';
 import { config } from './config';
 import {
   ProductsQuery,
@@ -10,6 +10,7 @@ import {
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
   GetFiltersQuery,
+  ProductCollectionSortKeys,
 } from './graphql';
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -68,14 +69,29 @@ const makeShopifyRequest = async (
 };
 
 // Get all products or a limited number of products (default: 10)
-export const getProducts = async (options: { limit?: number; buyerIP: string; filters?: string[] }) => {
-  const { limit = 10, buyerIP, filters = [] } = options;
+export const getProducts = async (options: {
+  limit?: number;
+  buyerIP: string;
+  sort?: z.infer<typeof Sort>;
+  filters?: string[];
+}) => {
+  const {
+    limit = 20,
+    buyerIP,
+    sort = {
+      key: SortKey.Enum.BEST_SELLING,
+      ascending: true,
+    },
+    filters = [],
+  } = options;
 
   const data = await makeShopifyRequest(
     ProductsQuery,
     {
       first: limit,
       filters: filters.map((filter) => JSON.parse(filter)),
+      sortKey: sort.key,
+      reverse: !sort.ascending,
     },
     buyerIP
   );

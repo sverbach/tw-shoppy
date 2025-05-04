@@ -1,0 +1,49 @@
+import { ProductCollectionSortKeys } from '@/utils/graphql';
+import type { Sort } from '@/utils/schemas';
+import { createContext, useContext, useState, type ReactNode } from 'react';
+import type { z } from 'zod';
+
+type FiltersContextType = {
+  filters: string[];
+  setFilters: (filters: string[]) => void;
+};
+
+const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
+
+export function FiltersProvider({ children }: { children: ReactNode }) {
+  const [filters, setFilters] = useState<string[]>([]);
+
+  return <FiltersContext.Provider value={{ filters, setFilters }}>{children}</FiltersContext.Provider>;
+}
+
+export function useFilters() {
+  const context = useContext(FiltersContext);
+  if (!context) {
+    throw new Error('useFilter must be used within a FilterProvider');
+  }
+  return context;
+}
+
+type SortContextType = {
+  sort: z.infer<typeof Sort>;
+  setSort: (sort: z.infer<typeof Sort>) => void;
+};
+
+const SortContext = createContext<SortContextType | undefined>(undefined);
+
+export function SortProvider({ children }: { children: ReactNode }) {
+  const [sort, setSort] = useState<z.infer<typeof Sort>>({
+    key: ProductCollectionSortKeys.Relevance,
+    ascending: true,
+  });
+
+  return <SortContext.Provider value={{ sort, setSort }}>{children}</SortContext.Provider>;
+}
+
+export function useSort() {
+  const context = useContext(SortContext);
+  if (!context) {
+    throw new Error('useFilter must be used within a SortProvider');
+  }
+  return context;
+}

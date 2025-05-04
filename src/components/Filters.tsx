@@ -1,26 +1,29 @@
 import { z } from 'zod';
-import { SomeFilter } from '@/components/some-filter';
-import { ProductFilters } from '@/utils/schemas';
+import { ProductFilters, SortKey } from '@/utils/schemas';
 import { MultiSelect } from './multi-select';
-import { useFilter } from './ProductsFilterContext';
+import { useFilters, useSort } from './contexts';
 
 export interface Props {
-  filters: z.infer<typeof ProductFilters>;
+  availableFilters: z.infer<typeof ProductFilters>;
 }
 
-export function Filters({ filters }: Props) {
-  const { filter, setFilter } = useFilter();
-  const brandFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.brand');
-  const ledFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.led_support');
-  const availableFilter = filters.find((filter) => filter.id === 'filter.v.availability');
-  const priceFilter = filters.find((filter) => filter.id === 'filter.v.price');
-  const typeFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.type');
-  const lubeFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.pre_lubed');
-  const colorFilter = filters.find((filter) => filter.id === 'filter.v.t.shopify.color-pattern');
-  const pcbMountFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.pcb_mount');
-  const preTravelFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.pre_travel');
-  const totalTravelFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.total_travel');
-  const operatingForceFilter = filters.find((filter) => filter.id === 'filter.p.m.switch.operating_force');
+export function Filters({ availableFilters }: Props) {
+  const { setFilters } = useFilters();
+  const { setSort } = useSort();
+
+  const brandFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.brand');
+  const ledFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.led_support');
+  const availableFilter = availableFilters.find((filter) => filter.id === 'filter.v.availability');
+  const priceFilter = availableFilters.find((filter) => filter.id === 'filter.v.price');
+  const typeFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.type');
+  const lubeFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pre_lubed');
+  const colorFilter = availableFilters.find((filter) => filter.id === 'filter.v.t.shopify.color-pattern');
+  const pcbMountFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pcb_mount');
+  const preTravelFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pre_travel');
+  const totalTravelFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.total_travel');
+  const operatingForceFilter = availableFilters.find(
+    (filter) => filter.id === 'filter.p.m.switch.operating_force'
+  );
 
   if (
     !brandFilter ||
@@ -48,12 +51,18 @@ export function Filters({ filters }: Props) {
   const preTravelOptions = preTravelFilter.values.map((v) => ({ label: v.label, value: v.input }));
   const totalTravelOptions = totalTravelFilter.values.map((v) => ({ label: v.label, value: v.input }));
   const operatingForceOptions = operatingForceFilter.values.map((v) => ({ label: v.label, value: v.input }));
+  const sortOptions: { label: string; value: string }[] = [
+    { label: 'Most relevant', value: SortKey.Enum.RELEVANCE },
+    { label: 'Most recent', value: SortKey.Enum.CREATED },
+    { label: 'Price', value: SortKey.Enum.PRICE },
+    { label: 'Name', value: SortKey.Enum.TITLE },
+  ];
 
   return (
     <div className="flex flex-wrap gap-7">
       <MultiSelect
         options={availableOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[availableOptions[0].value]}
         placeholder={availableFilter.label}
         variant="inverted"
@@ -64,7 +73,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={typeOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={typeFilter.label}
         variant="inverted"
@@ -75,7 +84,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={lubeOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={lubeFilter.label}
         variant="inverted"
@@ -86,7 +95,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={colorOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={colorFilter.label}
         variant="inverted"
@@ -97,7 +106,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={pcbMountOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={pcbMountFilter.label}
         variant="inverted"
@@ -108,7 +117,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={preTravelOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={preTravelFilter.label}
         variant="inverted"
@@ -119,7 +128,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={totalTravelOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={totalTravelFilter.label}
         variant="inverted"
@@ -130,7 +139,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={operatingForceOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={operatingForceFilter.label}
         variant="inverted"
@@ -141,7 +150,7 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={brandOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={brandFilter.label}
         variant="inverted"
@@ -152,12 +161,25 @@ export function Filters({ filters }: Props) {
 
       <MultiSelect
         options={ledOptions}
-        onValueChange={(selected) => setFilter(selected)}
+        onValueChange={(selected) => setFilters(selected)}
         defaultValue={[]}
         placeholder={ledFilter.label}
         variant="inverted"
         animation={0}
         maxCount={2}
+        className="w-64"
+      />
+
+      <MultiSelect
+        options={sortOptions}
+        onValueChange={(selected) =>
+          setSort({ key: selected[0] as z.infer<typeof SortKey>, ascending: true })
+        }
+        defaultValue={[sortOptions[0].value]}
+        placeholder="Sort"
+        variant="inverted"
+        animation={0}
+        maxCount={1}
         className="w-64"
       />
     </div>
