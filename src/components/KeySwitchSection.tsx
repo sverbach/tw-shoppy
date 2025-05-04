@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ProductFilters, ProductResult } from '@/utils/schemas';
-import { FiltersProvider, SortProvider } from './contexts';
+import { FiltersProvider, SearchProvider, SortProvider } from './contexts';
 import { Filters } from './filters';
 import { KeySwitchItemList } from './KeySwitchItemList';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
@@ -16,12 +16,14 @@ const queryClient = new QueryClient();
 function KeySwitchSection({ availableFilters, buyerIP }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
-      <SortProvider>
-        <FiltersProvider>
-          <Filters availableFilters={availableFilters} />
-          <KeySwitchItemList buyerIP={buyerIP} />
-        </FiltersProvider>
-      </SortProvider>
+      <SearchProvider>
+        <SortProvider>
+          <FiltersProvider>
+            <Filters availableFilters={availableFilters} />
+            <KeySwitchItemList buyerIP={buyerIP} />
+          </FiltersProvider>
+        </SortProvider>
+      </SearchProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

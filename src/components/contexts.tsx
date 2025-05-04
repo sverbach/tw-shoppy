@@ -47,3 +47,24 @@ export function useSort() {
   }
   return context;
 }
+
+type SearchContextType = {
+  search: string;
+  setSearch: (search: string) => void;
+};
+
+const SearchContext = createContext<SearchContextType | undefined>(undefined);
+
+export function SearchProvider({ children }: { children: ReactNode }) {
+  const [search, setSearch] = useState<string>('');
+
+  return <SearchContext.Provider value={{ search, setSearch }}>{children}</SearchContext.Provider>;
+}
+
+export function useSearch() {
+  const context = useContext(SearchContext);
+  if (!context) {
+    throw new Error('useFilter must be used within a SearchProvider');
+  }
+  return context;
+}

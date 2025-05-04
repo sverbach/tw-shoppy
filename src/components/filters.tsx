@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ProductFilters, SortKey } from '@/utils/schemas';
 import { MultiSelect } from './multi-select';
-import { useFilters, useSort } from './contexts';
+import { useFilters, useSearch, useSort } from './contexts';
 import {
   Select,
   SelectContent,
@@ -11,6 +11,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from './command';
+import { useState } from 'react';
+import { Button } from './button';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
@@ -19,6 +31,8 @@ export interface Props {
 export function Filters({ availableFilters }: Props) {
   const { setFilters } = useFilters();
   const { setSort } = useSort();
+  const { setSearch } = useSearch();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const brandFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.brand');
   const ledFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.led_support');
@@ -193,6 +207,21 @@ export function Filters({ availableFilters }: Props) {
           </SelectGroup>
         </SelectContent>
       </Select>
+
+      <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
+        Open search
+      </Button>
+      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Products">
+            <CommandItem>Calendar</CommandItem>
+            <CommandItem>Search Emoji</CommandItem>
+            <CommandItem>Calculator</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
 }
