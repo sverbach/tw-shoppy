@@ -2,6 +2,15 @@ import { z } from 'zod';
 import { ProductFilters, SortKey } from '@/utils/schemas';
 import { MultiSelect } from './multi-select';
 import { useFilters, useSort } from './contexts';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from './select';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
@@ -170,18 +179,20 @@ export function Filters({ availableFilters }: Props) {
         className="w-64"
       />
 
-      <MultiSelect
-        options={sortOptions}
-        onValueChange={(selected) =>
-          setSort({ key: selected[0] as z.infer<typeof SortKey>, ascending: true })
-        }
-        defaultValue={[sortOptions[0].value]}
-        placeholder="Sort"
-        variant="inverted"
-        animation={0}
-        maxCount={1}
-        className="w-64"
-      />
+      <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })}>
+        <SelectTrigger className="w-64">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {sortOptions.map((sortOption) => (
+              <SelectItem value={sortOption.value} key={sortOption.value}>
+                {sortOption.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

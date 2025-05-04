@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ProductFilters, ProductResult } from '@/utils/schemas';
 import { FiltersProvider, SortProvider } from './contexts';
-import { Filters } from './Filters';
+import { Filters } from './filters';
 import { KeySwitchItemList } from './KeySwitchItemList';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
