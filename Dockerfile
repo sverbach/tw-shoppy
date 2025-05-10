@@ -3,8 +3,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install --force
-RUN npm run build
+RUN npm install --force -P
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
