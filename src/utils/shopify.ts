@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CartResult, FiltersResult, ProductResult, Sort, SortKey } from './schemas';
+import { CartResult, FiltersResult, ProductResult, PredictiveSearchResult, Sort, SortKey } from './schemas';
 import { config } from './config';
 import {
   ProductsQuery,
@@ -11,6 +11,7 @@ import {
   ProductRecommendationsQuery,
   GetFiltersQuery,
   ProductCollectionSortKeys,
+  PredictiveSearchQuery,
 } from './graphql';
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -40,7 +41,7 @@ const makeShopifyRequest = async (
     if (isSSR) {
       options.headers = {
         'Content-Type': 'application/json',
-        'Shopify-Storefront-Private-Token': privateShopifyAccessToken,
+        'X-Shopify-Storefront-Access-Token': publicShopifyAccessToken,
         'Shopify-Storefront-Buyer-IP': buyerIP,
       };
       return options;
@@ -144,6 +145,13 @@ export const getProductFilters = async (options: { buyerIP: string }) => {
   const data = await makeShopifyRequest(GetFiltersQuery, {}, buyerIP);
 
   return FiltersResult.parse(data).collection.products.filters;
+};
+
+export const predictiveSearch = async (options: { buyerIP: string; query: string }) => {
+  const { buyerIP, query } = options;
+  const data = await makeShopifyRequest(PredictiveSearchQuery, { query }, buyerIP);
+
+  return PredictiveSearchResult.parse(data.predictiveSearch);
 };
 
 // Create a cart and add a line item to it and return the cart object

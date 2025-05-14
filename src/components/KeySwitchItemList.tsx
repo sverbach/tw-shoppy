@@ -1,6 +1,6 @@
 import { KeySwitchItem } from './KeySwitchItem';
-import { useFilters, useSort } from './contexts';
-import { getProducts } from '@/utils/shopify';
+import { useFilters, useSearch, useSort } from './contexts';
+import { getProducts, predictiveSearch } from '@/utils/shopify';
 import { useQuery } from '@tanstack/react-query';
 
 export interface Props {

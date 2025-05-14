@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { ProductCollectionSortKeys } from './graphql';
+import { predictiveSearch } from './shopify';
 
 export const configSchema = z.object({
   shopifyShop: z.string(),
@@ -77,6 +78,22 @@ export const ProductResult = z
     featuredImage: ImageResult.nullable(),
   })
   .nullable();
+
+export const PredictiveSearchProduct = z
+  .object({
+    id: z.string(),
+    title: z.string(),
+    handle: z.string(),
+    featuredImage: z.object({
+      url: z.string(),
+      altText: z.string(),
+    }),
+  })
+  .nullable();
+
+export const PredictiveSearchResult = z.object({
+  products: z.array(PredictiveSearchProduct),
+});
 
 export const ProductFilterValue = z.object({
   id: z.string(),

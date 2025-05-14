@@ -6,7 +6,7 @@ import { KeySwitchSection } from '@/components/KeySwitchSection';
 
 const title = 'Switches';
 const headers = Astro.request.headers;
-const ip = headers.get('x-vercel-forwarded-for') || Astro.clientAddress;
+const ip = Astro.clientAddress;
 const filters = await getProductFilters({ buyerIP: ip });
 
 setCache.short(Astro);

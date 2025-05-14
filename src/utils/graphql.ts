@@ -146,6 +146,22 @@ export const GetFiltersQuery = `#graphql
   }
 `;
 
+export const PredictiveSearchQuery = `#graphql
+query PredictiveSearch($query: String!) {
+  predictiveSearch(query: $query, limit: 5) {
+    products {
+      id
+      title
+      handle
+      featuredImage {
+        url
+        altText
+      }
+    }
+  }
+}
+`;
+
 export const GetCartQuery = `#graphql
   query ($id: ID!) {
     cart(id: $id) {

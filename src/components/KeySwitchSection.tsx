@@ -19,7 +19,7 @@ function KeySwitchSection({ availableFilters, buyerIP }: Props) {
       <SearchProvider>
         <SortProvider>
           <FiltersProvider>
-            <Filters availableFilters={availableFilters} />
+            <Filters availableFilters={availableFilters} buyerIP={buyerIP} />
             <KeySwitchItemList buyerIP={buyerIP} />
           </FiltersProvider>
         </SortProvider>

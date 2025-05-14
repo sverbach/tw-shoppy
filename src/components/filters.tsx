@@ -23,15 +23,19 @@ import {
 } from './command';
 import { useState } from 'react';
 import { Button } from './button';
+import { predictiveSearch } from '@/utils/shopify';
+import { useQuery } from '@tanstack/react-query';
+import { CommandLoading } from 'cmdk';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
+  buyerIP: string;
 }
 
-export function Filters({ availableFilters }: Props) {
+export function Filters({ availableFilters, buyerIP }: Props) {
   const { setFilters } = useFilters();
   const { setSort } = useSort();
-  const { setSearch } = useSearch();
+  const { search, setSearch } = useSearch();
   const [searchOpen, setSearchOpen] = useState(false);
 
   const brandFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.brand');
@@ -80,6 +84,16 @@ export function Filters({ availableFilters }: Props) {
     { label: 'Price', value: SortKey.Enum.PRICE },
     { label: 'Name', value: SortKey.Enum.TITLE },
   ];
+
+  async function loadSearchResults() {
+    return await predictiveSearch({ buyerIP, query: search });
+  }
+
+  const { isLoading, data } = useQuery({
+    queryKey: ['global-search', search],
+    queryFn: () => loadSearchResults(),
+    staleTime: 30000,
+  });
 
   return (
     <div className="flex flex-wrap gap-7">
@@ -214,11 +228,16 @@ export function Filters({ availableFilters }: Props) {
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Products">
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search Emoji</CommandItem>
-            <CommandItem>Calculator</CommandItem>
+            {isLoading ? (
+              <CommandLoading></CommandLoading>
+            ) : !data || data.products.length === 0 ? (
+              <CommandEmpty>No results found.</CommandEmpty>
+            ) : (
+              data.products
+                .filter((product) => !!product)
+                .map((product) => <CommandItem key={product.id}>{product.title}</CommandItem>)
+            )}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
