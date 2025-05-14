@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import { ProductCollectionSortKeys } from './graphql';
-import { predictiveSearch } from './shopify';
 
 export const configSchema = z.object({
   shopifyShop: z.string(),

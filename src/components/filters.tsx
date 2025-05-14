@@ -1,31 +1,9 @@
 import { z } from 'zod';
 import { ProductFilters, SortKey } from '@/utils/schemas';
 import { MultiSelect } from './multi-select';
-import { useFilters, useSearch, useSort } from './contexts';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from './select';
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from './command';
-import { useState } from 'react';
-import { Button } from './button';
-import { predictiveSearch } from '@/utils/shopify';
-import { useQuery } from '@tanstack/react-query';
-import { CommandLoading } from 'cmdk';
+import { useFilters, useSort } from './contexts';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select';
+import { Search } from './search';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
@@ -35,8 +13,6 @@ export interface Props {
 export function Filters({ availableFilters, buyerIP }: Props) {
   const { setFilters } = useFilters();
   const { setSort } = useSort();
-  const { search, setSearch } = useSearch();
-  const [searchOpen, setSearchOpen] = useState(false);
 
   const brandFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.brand');
   const ledFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.led_support');
@@ -84,16 +60,6 @@ export function Filters({ availableFilters, buyerIP }: Props) {
     { label: 'Price', value: SortKey.Enum.PRICE },
     { label: 'Name', value: SortKey.Enum.TITLE },
   ];
-
-  async function loadSearchResults() {
-    return await predictiveSearch({ buyerIP, query: search });
-  }
-
-  const { isLoading, data } = useQuery({
-    queryKey: ['global-search', search],
-    queryFn: () => loadSearchResults(),
-    staleTime: 30000,
-  });
 
   return (
     <div className="flex flex-wrap gap-7">
@@ -222,25 +188,7 @@ export function Filters({ availableFilters, buyerIP }: Props) {
         </SelectContent>
       </Select>
 
-      <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Open search
-      </Button>
-      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
-        <CommandList>
-          <CommandGroup heading="Products">
-            {isLoading ? (
-              <CommandLoading></CommandLoading>
-            ) : !data || data.products.length === 0 ? (
-              <CommandEmpty>No results found.</CommandEmpty>
-            ) : (
-              data.products
-                .filter((product) => !!product)
-                .map((product) => <CommandItem key={product.id}>{product.title}</CommandItem>)
-            )}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
+      <Search buyerIP={buyerIP} />
     </div>
   );
 }
