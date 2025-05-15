@@ -150,16 +150,11 @@ export const PredictiveSearchQuery = `#graphql
 query PredictiveSearch($query: String!) {
   predictiveSearch(query: $query, limit: 5) {
     products {
-      id
-      title
-      handle
-      featuredImage {
-        url
-        altText
-      }
+      ...productFragment
     }
   }
 }
+${PRODUCT_FRAGMENT}
 `;
 
 export const GetCartQuery = `#graphql

@@ -77,20 +77,8 @@ export const ProductResult = z
   })
   .nullable();
 
-export const PredictiveSearchProduct = z
-  .object({
-    id: z.string(),
-    title: z.string(),
-    handle: z.string(),
-    featuredImage: z.object({
-      url: z.string(),
-      altText: z.string(),
-    }),
-  })
-  .nullable();
-
 export const PredictiveSearchResult = z.object({
-  products: z.array(PredictiveSearchProduct),
+  products: z.array(ProductResult),
 });
 
 export const ProductFilterValue = z.object({
