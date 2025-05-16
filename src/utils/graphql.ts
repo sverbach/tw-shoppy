@@ -126,10 +126,10 @@ export const ProductRecommendationsQuery = `#graphql
 `;
 
 export const GetFiltersQuery = `#graphql
-  query Facets {
+  query Facets($filters: [ProductFilter!]) {
     collection(handle: "key-switches") {
       handle
-      products(first: 100) {
+      products(first: 100, filters: $filters) {
         filters {
           id
           label

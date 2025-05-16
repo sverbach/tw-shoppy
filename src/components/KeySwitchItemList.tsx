@@ -1,6 +1,6 @@
 import { KeySwitchItem } from './KeySwitchItem';
-import { useFilters, useSort } from './contexts';
-import { getProducts } from '@/utils/shopify';
+import { useAppliedFilters, useSort } from './Contexts';
+import { getProducts } from '@/utils/shopify/products';
 import { useQuery } from '@tanstack/react-query';
 
 export interface Props {
@@ -8,16 +8,12 @@ export interface Props {
 }
 
 export function KeySwitchItemList({ buyerIP }: Props) {
-  const { filters } = useFilters();
+  const { appliedFilterValues } = useAppliedFilters();
   const { sort } = useSort();
 
-  async function loadProducts() {
-    return await getProducts({ limit: 250, buyerIP, filters, sort });
-  }
-
   const { isLoading, data } = useQuery({
-    queryKey: ['switches', filters, sort.key, sort.ascending],
-    queryFn: () => loadProducts(),
+    queryKey: ['switches', appliedFilterValues, sort.key, sort.ascending],
+    queryFn: () => getProducts({ limit: 250, buyerIP, filters: appliedFilterValues, sort }),
     staleTime: 30000,
   });
 

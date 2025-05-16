@@ -1,5 +1,5 @@
 ---
-import { getProductByHandle } from './../../utils/shopify';
+import { getProductByHandle } from '@/utils/shopify/products';
 import { setCache } from '../../utils/cache';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -35,7 +35,7 @@ setCache.short(Astro);
       </div>
 
       <section class="container">
-        <div class="pb-16 pt-6 lg:grid lg:grid-cols-12 lg:gap-20">
+        <div class="pt-6 pb-16 lg:grid lg:grid-cols-12 lg:gap-20">
           <div class="lg:col-span-7">
             <ProductImageGallery images={product.images} />
           </div>

@@ -1,7 +1,6 @@
-import { FiltersProvider, SearchProvider } from './contexts';
+import { FiltersProvider, SearchProvider } from './Contexts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { SearchButton } from './search';
+import { SearchButton } from './Search';
 import { OrderButton } from './OrderButton';
 import { CartButton } from './CartButton';
 

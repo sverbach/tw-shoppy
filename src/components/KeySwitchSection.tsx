@@ -1,25 +1,22 @@
-import { z } from 'zod';
-import { ProductFilters, ProductResult } from '@/utils/schemas';
-import { FiltersProvider, SearchProvider, SortProvider } from './contexts';
-import { Filters } from './filters';
+import { FiltersProvider, SearchProvider, SortProvider } from './Contexts';
 import { KeySwitchItemList } from './KeySwitchItemList';
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { FiltersSection } from './FiltersSection';
 
 export interface Props {
-  availableFilters: z.infer<typeof ProductFilters>;
   buyerIP: string;
 }
 
 const queryClient = new QueryClient();
 
-function KeySwitchSection({ availableFilters, buyerIP }: Props) {
+function KeySwitchSection({ buyerIP }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
       <SearchProvider>
         <SortProvider>
           <FiltersProvider>
-            <Filters availableFilters={availableFilters} buyerIP={buyerIP} />
+            <FiltersSection buyerIP={buyerIP} />
             <KeySwitchItemList buyerIP={buyerIP} />
           </FiltersProvider>
         </SortProvider>
