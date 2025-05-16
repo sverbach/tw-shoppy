@@ -3,7 +3,6 @@ import { ProductFilters, SortKey } from '@/utils/schemas';
 import { MultiSelect } from './multi-select';
 import { useFilters, useSort } from './contexts';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select';
-import { Search } from './search';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
@@ -187,8 +186,6 @@ export function Filters({ availableFilters, buyerIP }: Props) {
           </SelectGroup>
         </SelectContent>
       </Select>
-
-      <Search buyerIP={buyerIP} />
     </div>
   );
 }

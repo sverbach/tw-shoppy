@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { predictiveSearch } from '@/utils/shopify';
 import { useSearch } from './contexts';
+import { Badge } from './badge';
 
 interface Props {
   buyerIP: string;
@@ -21,7 +22,7 @@ function useDebounce<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
-export function Search({ buyerIP }: Props) {
+export function SearchButton({ buyerIP }: Props) {
   const [searchOpen, setSearchOpen] = useState(false);
   const { search, setSearch } = useSearch();
   const queryClient = useQueryClient();
@@ -50,7 +51,7 @@ export function Search({ buyerIP }: Props) {
   return (
     <>
       <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Open search
+        Search <Badge variant="outline">CTRL+S</Badge>
       </Button>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />

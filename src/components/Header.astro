@@ -1,6 +1,10 @@
 ---
 import Logo from './Logo.astro';
 import CartIcon from './CartIcon.svelte';
+import { SearchButton } from './search';
+import { SearchSection } from './SearchSection';
+
+const buyerIP = Astro.clientAddress;
 ---
 
 <header class="sticky top-0 z-40 backdrop-blur-sm">
@@ -12,8 +16,7 @@ import CartIcon from './CartIcon.svelte';
       tastaturwerk schaffhausen
     </div>
     <ul class="col-start-3 my-5 me-20 flex gap-20 justify-self-end text-sm font-medium">
-      <li><button type="button" class="cursor-pointer">[b]asket</button></li>
-      <li><button type="button" class="cursor-pointer">[o]rder</button></li>
+      <SearchSection buyerIP={buyerIP} client:load />
     </ul>
   </nav>
 </header>
