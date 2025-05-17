@@ -1,14 +1,13 @@
 ---
-import { getProductFilters } from '../../utils/shopify';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { setCache } from '../../utils/cache';
 import PageTitle from '../../components/PageTitle.astro';
-import { KeySwitchSection } from '@/components/KeySwitchSection';
+import { KeySwitchItemList } from '@/components/KeySwitchItemList';
+import { FiltersSection } from '@/components/FiltersSection';
 
 const title = 'Key switches';
 const headers = Astro.request.headers;
 const ip = headers.get('x-vercel-forwarded-for') || Astro.clientAddress;
-const filters = await getProductFilters({ buyerIP: ip });
 
 setCache.short(Astro);
 ---
@@ -18,7 +17,8 @@ setCache.short(Astro);
     <div class="flex max-w-screen-xl flex-col gap-16">
       <PageTitle text="Hall effect switches" />
       <div class="flex flex-col gap-6">
-        <KeySwitchSection availableFilters={filters} buyerIP={ip} client:load />
+        <FiltersSection buyerIP={ip} />
+        <KeySwitchItemList buyerIP={ip} />
       </div>
     </div>
   </div>

@@ -1,79 +1,46 @@
 import { z } from 'zod';
 import { ProductFilters, SortKey } from '@/utils/schemas';
-import { MultiSelect } from './multi-select';
-import { useFilters, useSearch, useSort } from './contexts';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from './select';
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from './command';
-import { useState } from 'react';
-import { Button } from './button';
+import { useSort } from './Contexts';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './Select';
+import { ProductSetFilter } from './ProductSetFilter';
+import type { ProductSetFilterId } from './ProductSetFilter';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
 }
 
+interface FilterConfig {
+  id: ProductSetFilterId;
+  maxCount?: number;
+  className?: string;
+}
+
+const FILTER_CONFIGS: FilterConfig[] = [
+  { id: 'filter.v.availability', maxCount: 1 },
+  { id: 'filter.p.m.switch.type', maxCount: 3 },
+  { id: 'filter.p.m.switch.pre_lubed', maxCount: 1 },
+  { id: 'filter.v.t.shopify.color-pattern' },
+  { id: 'filter.p.m.switch.pcb_mount' },
+  { id: 'filter.p.m.switch.total_travel' },
+  {
+    id: 'filter.p.m.switch.operating_force',
+    className: 'w-64',
+  },
+  {
+    id: 'filter.p.m.switch.brand',
+    maxCount: 2,
+    className: 'w-64',
+  },
+  {
+    id: 'filter.p.m.switch.led_support',
+    maxCount: 2,
+    className: 'w-64',
+  },
+];
+
 export function Filters({ availableFilters }: Props) {
-  const { setFilters } = useFilters();
   const { setSort } = useSort();
-  const { setSearch } = useSearch();
-  const [searchOpen, setSearchOpen] = useState(false);
 
-  const brandFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.brand');
-  const ledFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.led_support');
-  const availableFilter = availableFilters.find((filter) => filter.id === 'filter.v.availability');
-  const priceFilter = availableFilters.find((filter) => filter.id === 'filter.v.price');
-  const typeFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.type');
-  const lubeFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pre_lubed');
-  const colorFilter = availableFilters.find((filter) => filter.id === 'filter.v.t.shopify.color-pattern');
-  const pcbMountFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pcb_mount');
-  const preTravelFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.pre_travel');
-  const totalTravelFilter = availableFilters.find((filter) => filter.id === 'filter.p.m.switch.total_travel');
-  const operatingForceFilter = availableFilters.find(
-    (filter) => filter.id === 'filter.p.m.switch.operating_force'
-  );
-
-  if (
-    !brandFilter ||
-    !ledFilter ||
-    !availableFilter ||
-    !priceFilter ||
-    !typeFilter ||
-    !lubeFilter ||
-    !colorFilter ||
-    !pcbMountFilter ||
-    !preTravelFilter ||
-    !totalTravelFilter ||
-    !operatingForceFilter
-  ) {
-    throw new Error('aaaah!');
-  }
-
-  const ledOptions = ledFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const brandOptions = brandFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const availableOptions = availableFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const typeOptions = typeFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const lubeOptions = lubeFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const colorOptions = colorFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const pcbMountOptions = pcbMountFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const preTravelOptions = preTravelFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const totalTravelOptions = totalTravelFilter.values.map((v) => ({ label: v.label, value: v.input }));
-  const operatingForceOptions = operatingForceFilter.values.map((v) => ({ label: v.label, value: v.input }));
   const sortOptions: { label: string; value: string }[] = [
     { label: 'Most relevant', value: SortKey.Enum.RELEVANCE },
     { label: 'Most recent', value: SortKey.Enum.CREATED },
@@ -83,115 +50,15 @@ export function Filters({ availableFilters }: Props) {
 
   return (
     <div className="flex flex-wrap gap-7">
-      <MultiSelect
-        options={availableOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[availableOptions[0].value]}
-        placeholder={availableFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={1}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={typeOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={typeFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={3}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={lubeOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={lubeFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={1}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={colorOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={colorFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={10}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={pcbMountOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={pcbMountFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={10}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={preTravelOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={preTravelFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={10}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={totalTravelOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={totalTravelFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={10}
-        className="w-48"
-      />
-
-      <MultiSelect
-        options={operatingForceOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={operatingForceFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={10}
-        className="w-64"
-      />
-
-      <MultiSelect
-        options={brandOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={brandFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={2}
-        className="w-64"
-      />
-
-      <MultiSelect
-        options={ledOptions}
-        onValueChange={(selected) => setFilters(selected)}
-        defaultValue={[]}
-        placeholder={ledFilter.label}
-        variant="inverted"
-        animation={0}
-        maxCount={2}
-        className="w-64"
-      />
+      {FILTER_CONFIGS.map((config) => (
+        <ProductSetFilter
+          key={config.id}
+          filterId={config.id}
+          availableFilters={availableFilters}
+          maxCount={config.maxCount}
+          className={config.className}
+        />
+      ))}
 
       <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })}>
         <SelectTrigger className="w-64">
@@ -207,21 +74,6 @@ export function Filters({ availableFilters }: Props) {
           </SelectGroup>
         </SelectContent>
       </Select>
-
-      <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Open search
-      </Button>
-      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Products">
-            <CommandItem>Calendar</CommandItem>
-            <CommandItem>Search Emoji</CommandItem>
-            <CommandItem>Calculator</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
     </div>
   );
 }

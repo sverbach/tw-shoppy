@@ -4,19 +4,23 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { z } from 'zod';
 
 type FiltersContextType = {
-  filters: string[];
-  setFilters: (filters: string[]) => void;
+  appliedFilterValues: string[];
+  setAppliedFilterValues: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 
 export function FiltersProvider({ children }: { children: ReactNode }) {
-  const [filters, setFilters] = useState<string[]>([]);
+  const [appliedFilterValues, setAppliedFilterValues] = useState<string[]>([]);
 
-  return <FiltersContext.Provider value={{ filters, setFilters }}>{children}</FiltersContext.Provider>;
+  return (
+    <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>
+      {children}
+    </FiltersContext.Provider>
+  );
 }
 
-export function useFilters() {
+export function useAppliedFilters() {
   const context = useContext(FiltersContext);
   if (!context) {
     throw new Error('useFilter must be used within a FilterProvider');

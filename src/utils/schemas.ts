@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { ProductCollectionSortKeys } from './graphql';
 
 export const configSchema = z.object({
   shopifyShop: z.string(),
@@ -77,6 +76,10 @@ export const ProductResult = z
     featuredImage: ImageResult.nullable(),
   })
   .nullable();
+
+export const PredictiveSearchResult = z.object({
+  products: z.array(ProductResult),
+});
 
 export const ProductFilterValue = z.object({
   id: z.string(),

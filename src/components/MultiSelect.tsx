@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { CheckIcon, XCircle, ChevronDown, XIcon, ChevronUp } from 'lucide-react';
+import { CheckIcon, ChevronDown, XIcon, ChevronUp } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/separator';
@@ -48,10 +48,14 @@ interface MultiSelectProps
   options: {
     /** The text to display for the option. */
     label: string;
+    /** Additional information to display for the option. */
+    extra?: string | number;
     /** The unique value associated with the option. */
     value: string;
     /** Optional icon component to display alongside the option. */
     icon?: React.ComponentType<{ className?: string }>;
+    /** Marks the option as disabled. */
+    disabled?: boolean;
   }[];
 
   /**
@@ -172,7 +176,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             {...props}
             onClick={handleTogglePopover}
             className={cn(
-              'flex h-auto min-h-10 w-full items-center justify-between rounded-sm border-2 border-black p-1 [&_svg]:pointer-events-auto',
+              'flex h-auto min-h-10 w-full items-center justify-between rounded-sm border-1 border-black p-1 [&_svg]:pointer-events-auto',
               selectedValues.length > 0 ? 'bg-black' : 'bg-inherit hover:border-inherit',
               className
             )}
@@ -253,6 +257,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   const isSelected = selectedValues.includes(option.value);
                   return (
                     <CommandItem
+                      disabled={option.disabled}
                       key={option.value}
                       onSelect={() => toggleOption(option.value)}
                       className="cursor-pointer"
@@ -265,8 +270,11 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       >
                         <CheckIcon className="text-primary-foreground h-4 w-4" />
                       </div>
-                      {option.icon && <option.icon className="text-primary-foreground mr-2 h-4 w-4" />}
-                      <span>{option.label}</span>
+                      <div className="flex w-100 justify-between">
+                        {option.icon && <option.icon className="text-primary-foreground mr-2 h-4 w-4" />}
+                        <span>{option.label}</span>
+                        {option.extra && <Badge variant="secondary">{option.extra}</Badge>}
+                      </div>
                     </CommandItem>
                   );
                 })}

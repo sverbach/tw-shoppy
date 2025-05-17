@@ -126,10 +126,10 @@ export const ProductRecommendationsQuery = `#graphql
 `;
 
 export const GetFiltersQuery = `#graphql
-  query Facets {
+  query Facets($filters: [ProductFilter!]) {
     collection(handle: "key-switches") {
       handle
-      products(first: 100) {
+      products(first: 100, filters: $filters) {
         filters {
           id
           label
@@ -144,6 +144,17 @@ export const GetFiltersQuery = `#graphql
       }
     }
   }
+`;
+
+export const PredictiveSearchQuery = `#graphql
+query PredictiveSearch($query: String!) {
+  predictiveSearch(query: $query, limit: 5) {
+    products {
+      ...productFragment
+    }
+  }
+}
+${PRODUCT_FRAGMENT}
 `;
 
 export const GetCartQuery = `#graphql
