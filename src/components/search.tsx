@@ -48,10 +48,23 @@ export function SearchButton({ buyerIP }: Props) {
     }
   };
 
+  // spawn the cmdk dialog when user presses "CTRL+K"
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [setSearchOpen]);
+
   return (
     <>
       <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Search <Badge variant="outline">CTRL+S</Badge>
+        Search <Badge variant="outline">CTRL+K</Badge>
       </Button>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
