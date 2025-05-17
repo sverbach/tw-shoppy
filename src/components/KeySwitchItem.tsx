@@ -17,12 +17,12 @@ export function KeySwitchItem({ product }: Props) {
   return (
     <a
       href={`/switches/${product!.handle}`}
-      className="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm transition-colors hover:bg-black/80 hover:font-semibold hover:text-white"
+      className="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
       tabIndex={0}
       role="button"
     >
       <ShopifyImage
-        classList="z-10 overflow-hidden object-cover flex-none"
+        classList="z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform"
         loading="eager"
         image={product!.images.nodes[0]}
         sizes={`100px`}
