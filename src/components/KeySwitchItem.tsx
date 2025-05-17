@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ProductResult } from '../utils/schemas';
 import ShopifyImage from './ShopifyImage.tsx';
+import { cn } from '@/lib/utils.ts';
 
 interface Props {
   product: z.infer<typeof ProductResult>;
@@ -30,9 +31,10 @@ export function KeySwitchItem({ product }: Props) {
         <span className="max-h-[30px] overflow-hidden text-xs">{product!.title}</span>
         <div className="flex gap-1">
           <div
-            className={
-              'h-2 w-2 self-center rounded-full' + (variant.availableForSale ? 'bg-green-700' : 'bg-red-700')
-            }
+            className={cn(
+              'h-2 w-2 self-center rounded-full',
+              variant.availableForSale ? 'bg-green-700' : 'bg-red-700'
+            )}
           ></div>
           <span className="text-xs">{price}</span>
         </div>
