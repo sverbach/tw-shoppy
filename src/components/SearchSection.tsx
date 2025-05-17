@@ -3,12 +3,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SearchButton } from './search';
 import { OrderButton } from './OrderButton';
 import { CartButton } from './CartButton';
+import { getQueryClient } from '@/lib/utils';
 
 export interface Props {
   buyerIP: string;
 }
 
-const queryClient = new QueryClient();
+const queryClient = getQueryClient();
 
 function SearchSection({ buyerIP }: Props) {
   return (

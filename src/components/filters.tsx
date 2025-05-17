@@ -7,6 +7,7 @@ import type { ProductSetFilterId } from './ProductSetFilter';
 
 export interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
+  disableOptions: boolean;
 }
 
 interface FilterConfig {
@@ -38,7 +39,7 @@ const FILTER_CONFIGS: FilterConfig[] = [
   },
 ];
 
-export function Filters({ availableFilters }: Props) {
+export function Filters({ availableFilters, disableOptions }: Props) {
   const { setSort } = useSort();
 
   const sortOptions: { label: string; value: string }[] = [
@@ -57,6 +58,7 @@ export function Filters({ availableFilters }: Props) {
           availableFilters={availableFilters}
           maxCount={config.maxCount}
           className={config.className}
+          disableOptions={disableOptions}
         />
       ))}
 

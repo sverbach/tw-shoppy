@@ -22,9 +22,16 @@ interface Props {
   availableFilters: z.infer<typeof ProductFilters>;
   className?: string;
   maxCount?: number;
+  disableOptions: boolean;
 }
 
-export function ProductSetFilter({ filterId, availableFilters, className = 'w-48', maxCount = 10 }: Props) {
+export function ProductSetFilter({
+  filterId,
+  availableFilters,
+  disableOptions,
+  className = 'w-48',
+  maxCount = 10,
+}: Props) {
   const { appliedFilterValues, setAppliedFilterValues } = useAppliedFilters();
 
   const filter = availableFilters.find((filter) => filter.id === filterId);
@@ -37,7 +44,7 @@ export function ProductSetFilter({ filterId, availableFilters, className = 'w-48
     label: v.label,
     extra: v.count,
     value: v.input,
-    disabled: v.count === 0,
+    disabled: v.count === 0 || disableOptions,
   }));
 
   const selectedValues = options

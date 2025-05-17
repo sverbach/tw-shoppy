@@ -10,10 +10,15 @@ interface Props {
 export function FiltersSection({ buyerIP }: Props) {
   const { appliedFilterValues } = useAppliedFilters();
 
-  const { data } = useQuery({
+  const { data, isPlaceholderData } = useQuery({
     queryKey: ['product-filters', appliedFilterValues],
     queryFn: () => getProductFilters({ buyerIP, filters: appliedFilterValues }),
+    placeholderData: (prev) => prev,
   });
 
-  return <>{data ? <Filters availableFilters={data} /> : <div>Loading...</div>}</>;
+  return (
+    <>
+      {data ? <Filters availableFilters={data} disableOptions={isPlaceholderData} /> : <div>Loading...</div>}
+    </>
+  );
 }
