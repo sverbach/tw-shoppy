@@ -1,11 +1,11 @@
-import { Button } from './Button';
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './Command';
+import { Button } from './button';
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './command';
 import { CommandLoading } from 'cmdk';
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { predictiveSearch } from '@/utils/shopify/search';
-import { useSearch } from './Contexts';
-import { Badge } from './Badge';
+import { useSearch } from './contexts';
+import { Badge } from './badge';
 
 interface Props {
   buyerIP: string;

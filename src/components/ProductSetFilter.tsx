@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ProductFilters } from '@/utils/schemas';
 import { MultiSelect } from './MultiSelect';
-import { useAppliedFilters } from './Contexts';
+import { useAppliedFilters } from './contexts';
 
 // All possible filter IDs from the filters.tsx file
 export type ProductSetFilterId =

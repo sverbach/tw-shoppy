@@ -1,6 +1,6 @@
 import { getProductFilters } from '@/utils/shopify';
-import { useAppliedFilters } from './Contexts';
-import { Filters } from './Filters';
+import { useAppliedFilters } from './contexts';
+import { Filters } from './filters';
 import { useQuery } from '@tanstack/react-query';
 
 interface Props {

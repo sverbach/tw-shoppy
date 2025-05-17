@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from './Button';
-import { Badge } from './Badge';
+import { Button } from './button';
+import { Badge } from './badge';
 
 interface Props {
   buyerIP: string;

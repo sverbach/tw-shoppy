@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ProductFilters, SortKey } from '@/utils/schemas';
-import { useSort } from './Contexts';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './Select';
+import { useSort } from './contexts';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select';
 import { ProductSetFilter } from './ProductSetFilter';
 import type { ProductSetFilterId } from './ProductSetFilter';
 

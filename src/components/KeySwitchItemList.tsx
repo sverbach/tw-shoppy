@@ -1,5 +1,5 @@
 import { KeySwitchItem } from './KeySwitchItem';
-import { useAppliedFilters, useSort } from './Contexts';
+import { useAppliedFilters, useSort } from './contexts';
 import { getProducts } from '@/utils/shopify/products';
 import { useQuery } from '@tanstack/react-query';
 
