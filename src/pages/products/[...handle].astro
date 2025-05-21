@@ -4,7 +4,6 @@ import { setCache } from '../../utils/cache';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NotFoundLayout from '../../layouts/NotFoundLayout.astro';
-import AddToCartForm from '../../components/AddToCartForm.svelte';
 import ProductImageGallery from '../../components/ProductImageGallery.astro';
 import ProductBreadcrumb from '../../components/ProductBreadcrumb.astro';
 import ProductInformations from '../../components/ProductInformations.astro';
@@ -43,14 +42,7 @@ setCache.short(Astro);
           <div class="mt-8 lg:col-span-5 lg:mt-0">
             <ProductInformations title={product.title} price={firstVariant?.price} />
 
-            <div>
-              <AddToCartForm
-                client:load
-                variantId={firstVariant?.id}
-                variantQuantityAvailable={firstVariant?.quantityAvailable}
-                variantAvailableForSale={firstVariant?.availableForSale}
-              />
-            </div>
+            <div></div>
 
             <div class="mt-8">
               <ProductAccordions />

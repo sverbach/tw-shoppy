@@ -1,19 +1,19 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { initCart, cart, isCartDrawerOpen } from '../stores/cart';
+  import { initCart, $cart, $isCartDrawerOpen } from '../stores/cart';
 
   onMount(() => {
     initCart();
   });
 
   function openCart() {
-    isCartDrawerOpen.set(true);
+    $isCartDrawerOpen.set(true);
   }
 </script>
 
 <div>
   <button class="relative" onclick={() => openCart()}>
-    <span class="sr-only">Open your cart</span>
+    <span class="sr-only">Open your $cart</span>
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect
         x="10"
@@ -43,7 +43,7 @@
     </svg>
     {#if $cart && $cart.totalQuantity > 0}
       <div
-        class="bg-emerald-900 text-white rounded-full absolute -right-2 -top-1 text-[12px] sm:-right-1 sm:top-0"
+        class="absolute -top-1 -right-2 rounded-full bg-emerald-900 text-[12px] text-white sm:top-0 sm:-right-1"
       >
         <span class="flex h-5 w-5 items-center justify-center text-center">
           {$cart.totalQuantity}

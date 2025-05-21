@@ -2,6 +2,10 @@ import { z } from 'zod';
 import { ProductResult } from '../utils/schemas';
 import ShopifyImage from './ShopifyImage.tsx';
 import { cn } from '@/lib/utils.ts';
+import { Button } from './button.tsx';
+import { ShoppingCart } from 'lucide-react';
+import { useStore } from '@nanostores/react';
+import { $cart, $isCartUpdating, addCartItem } from '@/stores/cart.ts';
 
 interface Props {
   product: z.infer<typeof ProductResult>;
@@ -13,6 +17,12 @@ export function KeySwitchItem({ product }: Props) {
     style: 'currency',
     currency: variant.price.currencyCode,
   }).format(Number(variant.price.amount));
+  const cart = useStore($cart);
+  const isCartUpdating = useStore($isCartUpdating);
+
+  async function handleClickAddToCart(variantId: string) {
+    await addCartItem({ id: variantId, quantity: 10 });
+  }
 
   return (
     <a
@@ -37,6 +47,17 @@ export function KeySwitchItem({ product }: Props) {
             )}
           ></div>
           <span className="text-xs">{price}</span>
+          <Button
+            variant="ghost"
+            disabled={!!cart?.id || isCartUpdating}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleClickAddToCart(variant.id);
+            }}
+          >
+            <ShoppingCart />
+          </Button>
         </div>
       </div>
     </a>
