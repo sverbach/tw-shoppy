@@ -46,9 +46,5 @@ export function FiltersSection({ buyerIP }: Props) {
     window.history.replaceState({}, '', url);
   }
 
-  return (
-    <>
-      {data ? <Filters availableFilters={data} disableOptions={isPlaceholderData} /> : <div>Loading...</div>}
-    </>
-  );
+  return <>{data ? <Filters availableFilters={data} disableOptions={isPlaceholderData} /> : <div>Loading...</div>}</>;
 }

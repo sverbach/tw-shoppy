@@ -31,8 +31,7 @@ export function SearchButton({ buyerIP }: Props) {
 
   const { isLoading, data } = useQuery({
     queryKey: ['global-search', debouncedSearch],
-    queryFn: () =>
-      debouncedSearch.trim() ? predictiveSearch({ buyerIP, query: debouncedSearch }) : { products: [] },
+    queryFn: () => (debouncedSearch.trim() ? predictiveSearch({ buyerIP, query: debouncedSearch }) : { products: [] }),
     staleTime: 30000,
   });
 

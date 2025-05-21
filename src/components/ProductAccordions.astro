@@ -19,7 +19,7 @@ const accordions = [
   {
     accordions.map((accordion, index) => (
       <details class:list={['group', 'border-t', { 'border-b': index === accordions.length - 1 }]}>
-        <summary class="text-zinc-700 flex cursor-pointer items-center justify-between px-1 py-3 font-bold">
+        <summary class="flex cursor-pointer items-center justify-between px-1 py-3 font-bold text-zinc-700">
           <div class="flex items-center gap-2">
             {accordion.icon === 'truck' && (
               <svg
@@ -68,7 +68,7 @@ const accordions = [
             </svg>
           </span>
         </summary>
-        <div class="text-sm text-zinc-600 p-4">{accordion.content}</div>
+        <div class="p-4 text-sm text-zinc-600">{accordion.content}</div>
       </details>
     ))
   }

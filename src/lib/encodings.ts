@@ -41,19 +41,14 @@ const minifiedKeysLookupTable = {
 };
 
 // just the reverse of minifiedLookupTable
-const unMinifiedKeysLookupTable = Object.fromEntries(
-  Object.entries(minifiedKeysLookupTable).map(([key, value]) => [value, key])
-);
+const unMinifiedKeysLookupTable = Object.fromEntries(Object.entries(minifiedKeysLookupTable).map(([key, value]) => [value, key]));
 
 function replaceAllJsonObjectKeys(filters: string[], minifiedKeysLookupTable: Record<string, string>) {
   const keysToMinify = Object.keys(minifiedKeysLookupTable) as (keyof typeof minifiedKeysLookupTable)[];
   return filters.map((filter) => {
     let minifiedFilter = filter;
     for (let verboseKey of keysToMinify) {
-      minifiedFilter = minifiedFilter.replaceAll(
-        `"${verboseKey}"`,
-        `"${minifiedKeysLookupTable[verboseKey]}"`
-      );
+      minifiedFilter = minifiedFilter.replaceAll(`"${verboseKey}"`, `"${minifiedKeysLookupTable[verboseKey]}"`);
     }
 
     return minifiedFilter;

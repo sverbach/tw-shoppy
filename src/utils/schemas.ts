@@ -106,16 +106,7 @@ export const FiltersResult = z.object({
   }),
 });
 
-export const SortKey = z.enum([
-  'BEST_SELLING',
-  'COLLECTION_DEFAULT',
-  'CREATED',
-  'ID',
-  'MANUAL',
-  'PRICE',
-  'RELEVANCE',
-  'TITLE',
-]);
+export const SortKey = z.enum(['BEST_SELLING', 'COLLECTION_DEFAULT', 'CREATED', 'ID', 'MANUAL', 'PRICE', 'RELEVANCE', 'TITLE']);
 
 export const Sort = z.object({
   key: SortKey,

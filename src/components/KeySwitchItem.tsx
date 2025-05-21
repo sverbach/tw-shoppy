@@ -40,12 +40,7 @@ export function KeySwitchItem({ product }: Props) {
       <div className="ms-1 flex flex-1 flex-col gap-1">
         <span className="max-h-[30px] overflow-hidden text-xs">{product!.title}</span>
         <div className="flex gap-1">
-          <div
-            className={cn(
-              'h-2 w-2 self-center rounded-full',
-              variant.availableForSale ? 'bg-green-700' : 'bg-red-700'
-            )}
-          ></div>
+          <div className={cn('h-2 w-2 self-center rounded-full', variant.availableForSale ? 'bg-green-700' : 'bg-red-700')}></div>
           <span className="text-xs">{price}</span>
           <Button
             variant="ghost"

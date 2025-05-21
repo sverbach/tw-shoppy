@@ -7,15 +7,7 @@ import { Separator } from '@/components/separator';
 import { Button } from '@/components/button';
 import { Badge } from '@/components/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@/components/command';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/command';
 
 /**
  * Variants for the multi-select component to handle different styles.
@@ -38,9 +30,7 @@ const multiSelectVariants = cva('m-1', {
 /**
  * Props for MultiSelect component
  */
-interface MultiSelectProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof multiSelectVariants> {
+interface MultiSelectProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof multiSelectVariants> {
   /**
    * An array of option objects to be displayed in the multi-select component.
    * Each option object has a label, value, and an optional icon.
@@ -196,12 +186,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     );
                   })}
                   {selectedValues.length > maxCount && (
-                    <span
-                      className={cn(
-                        'text-background border-foreground/1 bg-transparent',
-                        multiSelectVariants({ variant })
-                      )}
-                    >
+                    <span className={cn('text-background border-foreground/1 bg-transparent', multiSelectVariants({ variant }))}>
                       {`+ ${selectedValues.length - maxCount}`}
                     </span>
                   )}
@@ -229,12 +214,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className="w-64 p-0"
-          align="start"
-          sideOffset={8}
-          onEscapeKeyDown={() => setIsPopoverOpen(false)}
-        >
+        <PopoverContent className="w-64 p-0" align="start" sideOffset={8} onEscapeKeyDown={() => setIsPopoverOpen(false)}>
           <Command>
             <CommandInput placeholder="Search..." onKeyDown={handleInputKeyDown} />
             <CommandList>
@@ -244,9 +224,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   <div
                     className={cn(
                       'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-xs border',
-                      selectedValues.length === options.length
-                        ? 'bg-primary text-primary-foreground'
-                        : 'opacity-50 [&_svg]:invisible'
+                      selectedValues.length === options.length ? 'bg-primary text-primary-foreground' : 'opacity-50 [&_svg]:invisible'
                     )}
                   >
                     <CheckIcon className="h-4 w-4" />
@@ -290,10 +268,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       <Separator orientation="vertical" className="flex h-full min-h-6" />
                     </>
                   )}
-                  <CommandItem
-                    onSelect={() => setIsPopoverOpen(false)}
-                    className="max-w-full flex-1 cursor-pointer justify-center"
-                  >
+                  <CommandItem onSelect={() => setIsPopoverOpen(false)} className="max-w-full flex-1 cursor-pointer justify-center">
                     Close
                   </CommandItem>
                 </div>

@@ -1,11 +1,7 @@
 import { config } from '../config';
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
-export const makeShopifyRequest = async (
-  query: string,
-  variables: Record<string, unknown> = {},
-  buyerIP: string = ''
-) => {
+export const makeShopifyRequest = async (query: string, variables: Record<string, unknown> = {}, buyerIP: string = '') => {
   const isSSR = import.meta.env.SSR;
   const apiUrl = `https://${config.shopifyShop}/api/${config.apiVersion}/graphql.json`;
 
@@ -13,9 +9,7 @@ export const makeShopifyRequest = async (
     // If the request is made from the server, we need to pass the private access token and the buyer IP
     isSSR &&
       !buyerIP &&
-      console.error(
-        `🔴 No buyer IP provided => make sure to pass the buyer IP when making a server side Shopify request.`
-      );
+      console.error(`🔴 No buyer IP provided => make sure to pass the buyer IP when making a server side Shopify request.`);
 
     const { privateShopifyAccessToken, publicShopifyAccessToken } = config;
     const options = {

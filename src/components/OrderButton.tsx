@@ -34,10 +34,7 @@ export function OrderButton({ buyerIP }: Props) {
         Orders <Badge variant="outline">CTRL+J</Badge>
       </Button>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
-        <CommandInput
-          placeholder="Please enter the order id, i.e. O-3291843"
-          onValueChange={(value) => setSearchOrderText(value)}
-        />
+        <CommandInput placeholder="Please enter the order id, i.e. O-3291843" onValueChange={(value) => setSearchOrderText(value)} />
         <CommandList>
           <CommandEmpty>Order not found.</CommandEmpty>
         </CommandList>

@@ -15,9 +15,9 @@ const { title = defaultTitle, message = defaultTitle } = Astro.props as Props;
 
 <BaseLayout title={title}>
   <div class="container grid justify-center py-44 text-center">
-    <span class="text-6xl text-emerald-900 font-bold">404</span>
-    <h1 class="text-xl mt-4">{message}</h1>
-    <a href="/" class="text-emerald-900 hover:text-emerald-700 mt-6 font-semibold">
+    <span class="text-6xl font-bold text-emerald-900">404</span>
+    <h1 class="mt-4 text-xl">{message}</h1>
+    <a href="/" class="mt-6 font-semibold text-emerald-900 hover:text-emerald-700">
       Go back home
       <span aria-hidden="true"> &rarr;</span>
     </a>

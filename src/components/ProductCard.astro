@@ -11,10 +11,7 @@ export interface Props {
 const { product } = Astro.props as Props;
 ---
 
-<a
-  href={`/products/${product?.handle}`}
-  class="group overflow-hidden rounded-lg border-l-orange-100 shadow hover:shadow-md"
->
+<a href={`/products/${product?.handle}`} class="group overflow-hidden rounded-lg border-l-orange-100 shadow hover:shadow-md">
   <div class="relative">
     <ShopifyImage
       classList=""
@@ -34,14 +31,7 @@ const { product } = Astro.props as Props;
     >
       <button class="button w-full gap-3 rounded-none">
         <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-5 w-5"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"

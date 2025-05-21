@@ -22,9 +22,7 @@ export function KeySwitchItemList({ buyerIP }: Props) {
       {isLoading || !data ? (
         <div>loading...</div>
       ) : (
-        data
-          .filter((product) => !!product)
-          .map((product) => <KeySwitchItem key={product.id} product={product} />)
+        data.filter((product) => !!product).map((product) => <KeySwitchItem key={product.id} product={product} />)
       )}
     </section>
   );

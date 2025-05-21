@@ -25,13 +25,7 @@ interface Props {
   disableOptions: boolean;
 }
 
-export function ProductSetFilter({
-  filterId,
-  availableFilters,
-  disableOptions,
-  className = 'w-48',
-  maxCount = 10,
-}: Props) {
+export function ProductSetFilter({ filterId, availableFilters, disableOptions, className = 'w-48', maxCount = 10 }: Props) {
   const { appliedFilterValues, setAppliedFilterValues } = useAppliedFilters();
 
   const filter = availableFilters.find((filter) => filter.id === filterId);
@@ -47,23 +41,17 @@ export function ProductSetFilter({
     disabled: v.count === 0 || disableOptions,
   }));
 
-  const selectedValues = options
-    .filter((option) => appliedFilterValues.includes(option.value))
-    .map((option) => option.value);
+  const selectedValues = options.filter((option) => appliedFilterValues.includes(option.value)).map((option) => option.value);
 
   function updateAppliedFilterValues(previous: string[], selected: string[]) {
-    const previousWithoutThisFilterValues = previous.filter((previousValue) =>
-      options.every(({ value }) => value !== previousValue)
-    );
+    const previousWithoutThisFilterValues = previous.filter((previousValue) => options.every(({ value }) => value !== previousValue));
     return [...previousWithoutThisFilterValues, ...selected];
   }
 
   return (
     <MultiSelect
       options={options}
-      onValueChange={(selected) =>
-        setAppliedFilterValues((prev) => updateAppliedFilterValues(prev, selected))
-      }
+      onValueChange={(selected) => setAppliedFilterValues((prev) => updateAppliedFilterValues(prev, selected))}
       defaultValue={selectedValues}
       placeholder={filter.label}
       variant="inverted"

@@ -46,11 +46,7 @@ export function CartButton({ buyerIP }: Props) {
       <Sheet open={searchOpen || open} onOpenChange={setSidebarOpen}>
         <SheetContent>
           <SheetHeader>
-            {!!cart?.id ? (
-              <SheetTitle>Your cart</SheetTitle>
-            ) : (
-              <SheetTitle>Your cart is empty whomp whomp</SheetTitle>
-            )}
+            {!!cart?.id ? <SheetTitle>Your cart</SheetTitle> : <SheetTitle>Your cart is empty whomp whomp</SheetTitle>}
           </SheetHeader>
           {cart?.id && (
             <>

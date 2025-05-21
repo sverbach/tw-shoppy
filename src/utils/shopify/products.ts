@@ -1,20 +1,10 @@
 import { z } from 'zod';
 import { ProductResult, Sort, SortKey, FiltersResult } from '../schemas';
 import { makeShopifyRequest } from './core';
-import {
-  ProductsQuery,
-  ProductByHandleQuery,
-  ProductRecommendationsQuery,
-  GetFiltersQuery,
-} from '../graphql';
+import { ProductsQuery, ProductByHandleQuery, ProductRecommendationsQuery, GetFiltersQuery } from '../graphql';
 
 // Get all products or a limited number of products (default: 50)
-export const getProducts = async (options: {
-  limit?: number;
-  buyerIP: string;
-  sort?: z.infer<typeof Sort>;
-  filters?: string[];
-}) => {
+export const getProducts = async (options: { limit?: number; buyerIP: string; sort?: z.infer<typeof Sort>; filters?: string[] }) => {
   const {
     limit = 50,
     buyerIP,
@@ -81,11 +71,7 @@ export const getProductRecommendations = async (options: { productId: string; bu
 
 export const getProductFilters = async (options: { buyerIP: string; filters?: string[] }) => {
   const { buyerIP, filters = [] } = options;
-  const data = await makeShopifyRequest(
-    GetFiltersQuery,
-    { filters: filters.map((filter) => JSON.parse(filter)) },
-    buyerIP
-  );
+  const data = await makeShopifyRequest(GetFiltersQuery, { filters: filters.map((filter) => JSON.parse(filter)) }, buyerIP);
 
   return FiltersResult.parse(data).collection.products.filters;
 };

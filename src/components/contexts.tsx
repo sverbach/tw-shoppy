@@ -13,11 +13,7 @@ const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 export function FiltersProvider({ children }: { children: ReactNode }) {
   const [appliedFilterValues, setAppliedFilterValues] = useState<string[]>([]);
 
-  return (
-    <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>
-      {children}
-    </FiltersContext.Provider>
-  );
+  return <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>{children}</FiltersContext.Provider>;
 }
 
 export function useAppliedFilters() {
