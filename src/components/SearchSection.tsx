@@ -1,4 +1,4 @@
-import { FiltersProvider, SearchProvider } from './contexts';
+import { FiltersProvider, SearchProvider, UserAgentProvider } from './contexts';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { SearchButton } from './search';
 import { CartButton } from './CartButton';
@@ -12,15 +12,17 @@ const queryClient = getQueryClient();
 
 function SearchSection({ buyerIP }: Props) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SearchProvider>
-        <FiltersProvider>
-          {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
-          <SearchButton buyerIP={buyerIP} />
-          <CartButton buyerIP={buyerIP} />
-        </FiltersProvider>
-      </SearchProvider>
-    </QueryClientProvider>
+    <UserAgentProvider>
+      <QueryClientProvider client={queryClient}>
+        <SearchProvider>
+          <FiltersProvider>
+            {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
+            <SearchButton buyerIP={buyerIP} />
+            <CartButton buyerIP={buyerIP} />
+          </FiltersProvider>
+        </SearchProvider>
+      </QueryClientProvider>
+    </UserAgentProvider>
   );
 }
 

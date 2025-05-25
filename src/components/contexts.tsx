@@ -1,7 +1,7 @@
 import { ProductCollectionSortKeys } from '@/utils/graphql';
 import type { Sort } from '@/utils/schemas';
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import type { z } from 'zod';
+import { z } from 'zod';
 
 type FiltersContextType = {
   appliedFilterValues: string[];
@@ -13,7 +13,11 @@ const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 export function FiltersProvider({ children }: { children: ReactNode }) {
   const [appliedFilterValues, setAppliedFilterValues] = useState<string[]>([]);
 
-  return <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>{children}</FiltersContext.Provider>;
+  return (
+    <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>
+      {children}
+    </FiltersContext.Provider>
+  );
 }
 
 export function useAppliedFilters() {
@@ -63,6 +67,45 @@ export function SearchProvider({ children }: { children: ReactNode }) {
 
 export function useSearch() {
   const context = useContext(SearchContext);
+  if (!context) {
+    throw new Error('useFilter must be used within a SearchProvider');
+  }
+  return context;
+}
+
+type UserAgent = 'mac' | 'windows' | 'other';
+
+type UserAgentContextType = {
+  userAgent: UserAgent;
+  setUserAgent: (userAgent: UserAgent) => void;
+};
+
+const UserAgentContext = createContext<UserAgentContextType | undefined>(undefined);
+export function UserAgentProvider({ children }: { children: ReactNode }) {
+  const [userAgent, setUserAgent] = useState<UserAgent>(getUserAgent());
+
+  return (
+    <UserAgentContext.Provider value={{ userAgent, setUserAgent }}>{children}</UserAgentContext.Provider>
+  );
+}
+
+function getUserAgent(): UserAgent {
+  const platform = navigator.platform.toLowerCase();
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  if (platform.includes('mac') || userAgent.includes('macintosh')) {
+    return 'mac';
+  }
+
+  if (platform.includes('win') || userAgent.includes('windows')) {
+    return 'windows';
+  }
+
+  return 'other';
+}
+
+export function useUserAgent() {
+  const context = useContext(UserAgentContext);
   if (!context) {
     throw new Error('useFilter must be used within a SearchProvider');
   }

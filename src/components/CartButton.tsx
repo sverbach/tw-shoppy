@@ -4,6 +4,7 @@ import { Badge } from './badge';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter } from './sheet';
 import { $cart, $isCartDrawerOpen, initCart } from '@/stores/cart';
 import { useStore } from '@nanostores/react';
+import { useUserAgent } from './contexts';
 
 interface Props {
   buyerIP: string;
@@ -12,6 +13,7 @@ interface Props {
 export function CartButton({ buyerIP }: Props) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [searchOpen, setSidebarOpen] = useState(false);
+  const [agent] = useUserAgent();
   const cart = useStore($cart);
   const open = useStore($isCartDrawerOpen);
 
@@ -41,12 +43,16 @@ export function CartButton({ buyerIP }: Props) {
   return (
     <>
       <Button variant="ghost" onClick={() => setSidebarOpen(!(searchOpen || open))} disabled={!isInitialized}>
-        Cart <Badge variant="outline">CTRL+L</Badge>
+        Cart <Badge variant="outline">{agent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
       </Button>
       <Sheet open={searchOpen || open} onOpenChange={setSidebarOpen}>
         <SheetContent>
           <SheetHeader>
-            {!!cart?.id ? <SheetTitle>Your cart</SheetTitle> : <SheetTitle>Your cart is empty whomp whomp</SheetTitle>}
+            {!!cart?.id ? (
+              <SheetTitle>Your cart</SheetTitle>
+            ) : (
+              <SheetTitle>Your cart is empty whomp whomp</SheetTitle>
+            )}
           </SheetHeader>
           {cart?.id && (
             <>
