@@ -4,7 +4,7 @@ import { CommandLoading } from 'cmdk';
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { predictiveSearch } from '@/utils/shopify/search';
-import { useSearch } from './contexts';
+import { useSearch, useUserAgent } from './contexts';
 import { Badge } from './badge';
 
 interface Props {
@@ -23,6 +23,7 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 export function SearchButton({ buyerIP }: Props) {
+  const { userAgent } = useUserAgent();
   const [searchOpen, setSearchOpen] = useState(false);
   const { search, setSearch } = useSearch();
   const queryClient = useQueryClient();
@@ -63,7 +64,7 @@ export function SearchButton({ buyerIP }: Props) {
   return (
     <>
       <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Search <Badge variant="outline">CTRL+K</Badge>
+        Search <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+K</Badge>
       </Button>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
