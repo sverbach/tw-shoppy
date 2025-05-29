@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { CommandProvider, FiltersProvider, SearchProvider, SortProvider } from './contexts';
 import { FiltersSection } from './FiltersSection';
 import { KeySwitchItemList } from './KeySwitchItemList';
+import { CommandPaletteTrigger } from './CommandPaletteTrigger';
 
 export interface Props {
   buyerIP: string;
@@ -20,6 +21,7 @@ function KeySwitchSection({ buyerIP }: Props) {
             <CommandProvider>
               <FiltersSection buyerIP={buyerIP} />
               <KeySwitchItemList buyerIP={buyerIP} />
+              <CommandPaletteTrigger />
             </CommandProvider>
           </FiltersProvider>
         </SortProvider>

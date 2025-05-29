@@ -39,6 +39,7 @@ export function KeySwitchItem({ product }: Props) {
     }
 
     const randomAnimationIndex = Math.floor(Math.random() * 3) + 1;
+    console.log(randomAnimationIndex);
     setDanceAnimation(`animate-bounce-${randomAnimationIndex}`);
   }, [command]);
 
