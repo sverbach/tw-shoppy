@@ -14,7 +14,7 @@ const buyerIP = Astro.clientAddress;
       tastaturwerk schaffhausen
     </div>
     <ul class="col-start-3 my-5 me-20 flex gap-20 justify-self-end text-sm font-medium">
-      <SearchSection buyerIP={buyerIP} client:load />
+      <SearchSection buyerIP={buyerIP} client:only="react" />
     </ul>
   </nav>
 </header>

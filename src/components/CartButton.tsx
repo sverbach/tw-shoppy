@@ -13,7 +13,7 @@ interface Props {
 export function CartButton({ buyerIP }: Props) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [searchOpen, setSidebarOpen] = useState(false);
-  const [agent] = useUserAgent();
+  const { userAgent } = useUserAgent();
   const cart = useStore($cart);
   const open = useStore($isCartDrawerOpen);
 
@@ -43,22 +43,18 @@ export function CartButton({ buyerIP }: Props) {
   return (
     <>
       <Button variant="ghost" onClick={() => setSidebarOpen(!(searchOpen || open))} disabled={!isInitialized}>
-        Cart <Badge variant="outline">{agent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
+        Cart <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
       </Button>
       <Sheet open={searchOpen || open} onOpenChange={setSidebarOpen}>
         <SheetContent>
           <SheetHeader>
-            {!!cart?.id ? (
-              <SheetTitle>Your cart</SheetTitle>
-            ) : (
-              <SheetTitle>Your cart is empty whomp whomp</SheetTitle>
-            )}
+            {!!cart?.id ? <SheetTitle>Your cart</SheetTitle> : <SheetTitle>Your cart is empty whomp whomp</SheetTitle>}
           </SheetHeader>
           {cart?.id && (
             <>
               <ul>
                 {cart?.lines.nodes.map((node) => (
-                  <li>
+                  <li key={node.id}>
                     {node.merchandise.product.title}, {node.quantity}
                   </li>
                 ))}

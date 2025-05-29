@@ -13,11 +13,7 @@ const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 export function FiltersProvider({ children }: { children: ReactNode }) {
   const [appliedFilterValues, setAppliedFilterValues] = useState<string[]>([]);
 
-  return (
-    <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>
-      {children}
-    </FiltersContext.Provider>
-  );
+  return <FiltersContext.Provider value={{ appliedFilterValues, setAppliedFilterValues }}>{children}</FiltersContext.Provider>;
 }
 
 export function useAppliedFilters() {
@@ -73,7 +69,7 @@ export function useSearch() {
   return context;
 }
 
-type UserAgent = 'mac' | 'windows' | 'other';
+export type UserAgent = 'mac' | 'windows' | 'other';
 
 type UserAgentContextType = {
   userAgent: UserAgent;
@@ -81,33 +77,16 @@ type UserAgentContextType = {
 };
 
 const UserAgentContext = createContext<UserAgentContextType | undefined>(undefined);
-export function UserAgentProvider({ children }: { children: ReactNode }) {
-  const [userAgent, setUserAgent] = useState<UserAgent>(getUserAgent());
+export function UserAgentProvider({ agent, children }: { agent: UserAgent; children: ReactNode }) {
+  const [userAgent, setUserAgent] = useState<UserAgent>(agent);
 
-  return (
-    <UserAgentContext.Provider value={{ userAgent, setUserAgent }}>{children}</UserAgentContext.Provider>
-  );
-}
-
-function getUserAgent(): UserAgent {
-  const platform = navigator.platform.toLowerCase();
-  const userAgent = navigator.userAgent.toLowerCase();
-
-  if (platform.includes('mac') || userAgent.includes('macintosh')) {
-    return 'mac';
-  }
-
-  if (platform.includes('win') || userAgent.includes('windows')) {
-    return 'windows';
-  }
-
-  return 'other';
+  return <UserAgentContext.Provider value={{ userAgent, setUserAgent }}>{children}</UserAgentContext.Provider>;
 }
 
 export function useUserAgent() {
   const context = useContext(UserAgentContext);
   if (!context) {
-    throw new Error('useFilter must be used within a SearchProvider');
+    throw new Error('useUserAgent must be used within a UserAgentProvider');
   }
   return context;
 }
