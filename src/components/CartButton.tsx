@@ -41,7 +41,7 @@ export function CartButton({ buyerIP }: Props) {
 
   return (
     <div>
-      <Button variant="ghost" onClick={() => $isCartDrawerOpen.set(false)} disabled={!isInitialized}>
+      <Button variant="ghost" onClick={() => $isCartDrawerOpen.set(!open)} disabled={!isInitialized}>
         Cart <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
       </Button>
       <Sheet open={open} onOpenChange={(openChange) => $isCartDrawerOpen.set(openChange)}>
