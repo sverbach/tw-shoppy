@@ -6,29 +6,48 @@ import { Button } from './button.tsx';
 import { ShoppingCart } from 'lucide-react';
 import { useStore } from '@nanostores/react';
 import { $cart, $isCartUpdating, addCartItem } from '@/stores/cart.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCommand } from './contexts.tsx';
 
 interface Props {
   product: z.infer<typeof ProductResult>;
+  index: number;
 }
 
 export function KeySwitchItem({ product }: Props) {
-  const variant = product!.variants.nodes[0];
-  const price = new Intl.NumberFormat('de-CH', {
-    style: 'currency',
-    currency: variant.price.currencyCode,
-  }).format(Number(variant.price.amount));
   const cart = useStore($cart);
   const isCartUpdating = useStore($isCartUpdating);
+  const { command } = useCommand();
   const [showAddToCartButton, setShowAddToCartButton] = useState(false);
+  const [priceFormatted, setPriceFormatted] = useState('');
+  const [danceAnimation, setDanceAnimation] = useState('');
+  const variant = product!.variants.nodes[0];
+
+  useEffect(() => {
+    setPriceFormatted(
+      new Intl.NumberFormat('de-CH', {
+        style: 'currency',
+        currency: variant.price.currencyCode,
+      }).format(Number(variant.price.amount))
+    );
+  }, [product]);
+
+  useEffect(() => {
+    if (command !== 'dance') {
+      setDanceAnimation('');
+      return;
+    }
+
+    const randomAnimationIndex = Math.floor(Math.random() * 3) + 1;
+    setDanceAnimation(`animate-bounce-${randomAnimationIndex}`);
+  }, [command]);
 
   async function handleClickAddToCart(variantId: string) {
     await addCartItem({ id: variantId, quantity: 10 });
   }
 
   return (
-    <button
-      type="button"
+    <div
       className="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
       role="button"
       tabIndex={-1}
@@ -37,7 +56,7 @@ export function KeySwitchItem({ product }: Props) {
     >
       <a href={`/switches/${product!.handle}`} tabIndex={-1}>
         <ShopifyImage
-          classList="z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform"
+          classList={cn('z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform', danceAnimation)}
           loading="eager"
           image={product!.images.nodes[0]}
           sizes={`100px`}
@@ -49,7 +68,7 @@ export function KeySwitchItem({ product }: Props) {
         </a>
         <div className="flex gap-1">
           <div className={cn('h-2 w-2 self-center rounded-full', variant.availableForSale ? 'bg-green-700' : 'bg-red-700')}></div>
-          <span className="text-xs">{price}</span>
+          <span className="text-xs">{priceFormatted}</span>
         </div>
       </div>
       <Button
@@ -64,6 +83,6 @@ export function KeySwitchItem({ product }: Props) {
       >
         {isCartUpdating ? <span>:)</span> : <ShoppingCart />}
       </Button>
-    </button>
+    </div>
   );
 }

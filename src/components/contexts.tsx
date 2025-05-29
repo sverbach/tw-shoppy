@@ -90,3 +90,24 @@ export function useUserAgent() {
   }
   return context;
 }
+
+export type Command = 'dance' | 'none';
+type CommandContextType = {
+  command: Command;
+  setCommand: (command: Command) => void;
+};
+
+const CommandContext = createContext<CommandContextType | undefined>(undefined);
+export function CommandProvider({ children }: { children: ReactNode }) {
+  const [command, setCommand] = useState<Command>('none');
+
+  return <CommandContext.Provider value={{ command, setCommand }}>{children}</CommandContext.Provider>;
+}
+
+export function useCommand() {
+  const context = useContext(CommandContext);
+  if (!context) {
+    throw new Error('useCommand must be used within a CommandContext');
+  }
+  return context;
+}

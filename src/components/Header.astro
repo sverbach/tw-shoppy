@@ -1,7 +1,4 @@
 ---
-import Logo from './Logo.astro';
-import CartIcon from './CartIcon.svelte';
-import { SearchButton } from './search';
 import { SearchSection } from './SearchSection';
 
 const buyerIP = Astro.clientAddress;
@@ -13,7 +10,7 @@ const buyerIP = Astro.clientAddress;
     <div class="text-eggwhite col-start-2 flex justify-self-center rounded-b-lg bg-black px-12 py-5 font-medium">
       tastaturwerk schaffhausen
     </div>
-    <ul class="col-start-3 my-5 me-20 flex h-[40px] gap-20 justify-self-end text-sm font-medium">
+    <ul class="col-start-3 my-5 me-20 flex h-[40px] gap-2 justify-self-end text-sm font-medium">
       <SearchSection buyerIP={buyerIP} client:only="react" />
     </ul>
   </nav>

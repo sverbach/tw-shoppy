@@ -1,8 +1,9 @@
-import { FiltersProvider, SearchProvider, UserAgentProvider, type UserAgent } from './contexts';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { SearchButton } from './search';
-import { CartButton } from './CartButton';
 import { getQueryClient } from '@/lib/utils';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { CartButton } from './CartButton';
+import { CommandPaletteTrigger } from './CommandPaletteTrigger';
+import { CommandProvider, FiltersProvider, SearchProvider, UserAgentProvider, type UserAgent } from './contexts';
+import { SearchButton } from './SearchButton';
 
 export interface Props {
   buyerIP: string;
@@ -32,9 +33,12 @@ function SearchSection({ buyerIP }: Props) {
       <QueryClientProvider client={queryClient}>
         <SearchProvider>
           <FiltersProvider>
-            {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
-            <SearchButton buyerIP={buyerIP} />
-            <CartButton buyerIP={buyerIP} />
+            <CommandProvider>
+              {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
+              <SearchButton buyerIP={buyerIP} />
+              <CartButton buyerIP={buyerIP} />
+              <CommandPaletteTrigger />
+            </CommandProvider>
           </FiltersProvider>
         </SearchProvider>
       </QueryClientProvider>
