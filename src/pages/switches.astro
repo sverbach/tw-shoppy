@@ -10,12 +10,10 @@ setCache.short(Astro);
 ---
 
 <BaseLayout title={title}>
-  <div class="flex justify-center">
-    <div class="flex max-w-screen-xl flex-col gap-16">
-      <h1 class="ms-[-5px] mt-[-5px] text-8xl font-bold">All switches</h1>
-      <div class="flex flex-col gap-6">
-        <KeySwitchSection buyerIP={ip} client:load />
-      </div>
+  <div class="flex max-w-screen-xl flex-col gap-16">
+    <h1 class="ms-[-5px] mt-[-5px] text-8xl font-bold">All switches</h1>
+    <div class="flex flex-col gap-6">
+      <KeySwitchSection buyerIP={ip} client:load />
     </div>
   </div>
 </BaseLayout>

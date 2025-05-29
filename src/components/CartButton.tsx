@@ -12,7 +12,6 @@ interface Props {
 
 export function CartButton({ buyerIP }: Props) {
   const [isInitialized, setIsInitialized] = useState(false);
-  const [searchOpen, setSidebarOpen] = useState(false);
   const { userAgent } = useUserAgent();
   const cart = useStore($cart);
   const open = useStore($isCartDrawerOpen);
@@ -32,20 +31,20 @@ export function CartButton({ buyerIP }: Props) {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
         e.preventDefault();
-        setSidebarOpen(true);
+        $isCartDrawerOpen.set(true);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [setSidebarOpen]);
+  }, []);
 
   return (
     <>
-      <Button variant="ghost" onClick={() => setSidebarOpen(!(searchOpen || open))} disabled={!isInitialized}>
+      <Button variant="ghost" onClick={() => $isCartDrawerOpen.set(false)} disabled={!isInitialized}>
         Cart <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
       </Button>
-      <Sheet open={searchOpen || open} onOpenChange={setSidebarOpen}>
+      <Sheet open={open} onOpenChange={(openChange) => $isCartDrawerOpen.set(openChange)}>
         <SheetContent>
           <SheetHeader>
             {!!cart?.id ? <SheetTitle>Your cart</SheetTitle> : <SheetTitle>Your cart is empty whomp whomp</SheetTitle>}

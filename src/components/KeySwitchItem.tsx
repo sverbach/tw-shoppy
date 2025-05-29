@@ -6,6 +6,7 @@ import { Button } from './button.tsx';
 import { ShoppingCart } from 'lucide-react';
 import { useStore } from '@nanostores/react';
 import { $cart, $isCartUpdating, addCartItem } from '@/stores/cart.ts';
+import { useState } from 'react';
 
 interface Props {
   product: z.infer<typeof ProductResult>;
@@ -19,6 +20,7 @@ export function KeySwitchItem({ product }: Props) {
   }).format(Number(variant.price.amount));
   const cart = useStore($cart);
   const isCartUpdating = useStore($isCartUpdating);
+  const [showAddToCartButton, setShowAddToCartButton] = useState(false);
 
   async function handleClickAddToCart(variantId: string) {
     await addCartItem({ id: variantId, quantity: 10 });
@@ -28,10 +30,12 @@ export function KeySwitchItem({ product }: Props) {
     <button
       type="button"
       className="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
-      tabIndex={0}
       role="button"
+      tabIndex={-1}
+      onMouseEnter={() => setShowAddToCartButton(true)}
+      onMouseLeave={() => setShowAddToCartButton(false)}
     >
-      <a href={`/switches/${product!.handle}`}>
+      <a href={`/switches/${product!.handle}`} tabIndex={-1}>
         <ShopifyImage
           classList="z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform"
           loading="eager"
@@ -50,7 +54,7 @@ export function KeySwitchItem({ product }: Props) {
       </div>
       <Button
         variant="ghost"
-        className="absolute top-0 left-0"
+        className={cn('absolute top-0 right-0', showAddToCartButton ? 'block' : 'hidden')}
         disabled={!cart?.id || isCartUpdating}
         onClick={(e) => {
           e.preventDefault();
@@ -58,7 +62,7 @@ export function KeySwitchItem({ product }: Props) {
           handleClickAddToCart(variant.id);
         }}
       >
-        <ShoppingCart />
+        {isCartUpdating ? <span>:)</span> : <ShoppingCart />}
       </Button>
     </button>
   );
