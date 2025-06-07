@@ -14,7 +14,7 @@ interface Props {
   index: number;
 }
 
-export function KeySwitchItem({ product }: Props) {
+export function KeySwitchItem({ product, index }: Props) {
   const cart = useStore($cart);
   const isCartUpdating = useStore($isCartUpdating);
   const { command } = useCommand();
@@ -32,17 +32,6 @@ export function KeySwitchItem({ product }: Props) {
     );
   }, [product]);
 
-  useEffect(() => {
-    if (command !== 'dance') {
-      setDanceAnimation('');
-      return;
-    }
-
-    const randomAnimationIndex = Math.floor(Math.random() * 3) + 1;
-    console.log(randomAnimationIndex);
-    setDanceAnimation(`animate-bounce-${randomAnimationIndex}`);
-  }, [command]);
-
   async function handleClickAddToCart(variantId: string) {
     await addCartItem({ id: variantId, quantity: 10 });
   }
@@ -59,7 +48,13 @@ export function KeySwitchItem({ product }: Props) {
         <ShopifyImage
           classList={cn(
             'z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform',
-            danceAnimation
+            command !== 'dance'
+              ? ''
+              : index % 3 === 0
+                ? 'motion-safe:animate-dance-three'
+                : index % 2 === 0
+                  ? 'motion-safe:animate-dance-two'
+                  : 'motion-safe:animate-dance-one'
           )}
           loading="eager"
           image={product!.images.nodes[0]}
