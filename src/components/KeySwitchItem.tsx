@@ -57,7 +57,10 @@ export function KeySwitchItem({ product }: Props) {
     >
       <a href={`/switches/${product!.handle}`} tabIndex={-1}>
         <ShopifyImage
-          classList={cn('z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform', danceAnimation)}
+          classList={cn(
+            'z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform',
+            danceAnimation
+          )}
           loading="eager"
           image={product!.images.nodes[0]}
           sizes={`100px`}
@@ -68,14 +71,19 @@ export function KeySwitchItem({ product }: Props) {
           {product!.title}
         </a>
         <div className="flex gap-1">
-          <div className={cn('h-2 w-2 self-center rounded-full', variant.availableForSale ? 'bg-green-700' : 'bg-red-700')}></div>
+          <div
+            className={cn(
+              'h-2 w-2 self-center rounded-full',
+              variant.availableForSale ? 'bg-green-700' : 'bg-red-700'
+            )}
+          ></div>
           <span className="text-xs">{priceFormatted}</span>
         </div>
       </div>
       <Button
         variant="ghost"
         className={cn('absolute top-0 right-0', showAddToCartButton ? 'block' : 'hidden')}
-        disabled={!cart?.id || isCartUpdating}
+        disabled={!cart || isCartUpdating}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
