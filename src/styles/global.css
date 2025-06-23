@@ -51,19 +51,21 @@
 :root {
   --radius: 0.625rem;
   --background: #e0d6cc;
-  --foreground: oklch(0.145 0 0);
+  --foreground: #0d0d0d;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: #e0d6cc;
   --popover-foreground: oklch(0.145 0 0);
-  --primary: black;
-  --primary-foreground: white;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --primary: #403c35;
+  --primary-foreground: #e0d6cc;
+  --secondary: #736d63;
+  --secondary-foreground: #e0d6cc;
+  --terniary: #a6a5a1;
+  --terniary-foreground: #0d0d0d;
+  --accent: #0d0d0d;
+  --accent-foreground: #e0d6cc;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: var(--color-stone-500);
   --input: oklch(0.922 0 0);
