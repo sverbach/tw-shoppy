@@ -32,9 +32,11 @@ function SearchSection({ buyerIP }: Props) {
       <QueryClientProvider client={queryClient}>
         <SearchProvider>
           <FiltersProvider>
-            {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
-            <SearchButton buyerIP={buyerIP} />
-            <CartButton buyerIP={buyerIP} />
+            <div className="flex flex-col">
+              {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
+              <SearchButton buyerIP={buyerIP} />
+              <CartButton buyerIP={buyerIP} />
+            </div>
           </FiltersProvider>
         </SearchProvider>
       </QueryClientProvider>
