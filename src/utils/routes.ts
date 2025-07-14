@@ -1,49 +1,42 @@
 import { z } from 'zod';
+import { Shortcut } from './shortcuts';
 
+export const PageRouteIcon = z.enum(['KEYCAPS', 'SWITCHES', 'ACCESSOIRS']);
 export const PageRoute = z.object({
   link: z.string(),
   title: z.string(),
-  children: z
-    .array(
-      z.object({
-        link: z.string(),
-        title: z.string(),
-      })
-    )
-    .optional(),
+  icon: PageRouteIcon,
+  shortcut: Shortcut,
 });
 
 export const PageRoutes = z.array(PageRoute);
 
 export const routes: z.infer<typeof PageRoutes> = [
   {
-    link: '/cases',
-    title: 'cases',
+    link: '/keycaps',
+    title: 'keycaps',
+    icon: 'KEYCAPS',
+    shortcut: {
+      altKey: true,
+      key: 'j',
+    },
   },
   {
     link: '/switches',
     title: 'switches',
-    children: [
-      {
-        link: '/mech-switches',
-        title: 'mechanical switches',
-      },
-      {
-        link: '/he-switches',
-        title: 'hall effect switches',
-      },
-      {
-        link: '/low-profile-switches',
-        title: 'low profile switches',
-      },
-    ],
-  },
-  {
-    link: '/keycaps',
-    title: 'keycaps',
+    icon: 'SWITCHES',
+    shortcut: {
+      altKey: true,
+      key: 'k',
+    },
   },
   {
     link: '/accessoirs',
     title: 'accessoirs',
+    icon: 'ACCESSOIRS',
+    shortcut: {
+      altKey: true,
+      key: 'l',
+    },
   },
 ];

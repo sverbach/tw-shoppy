@@ -1,6 +1,5 @@
 ---
-import { z } from 'zod';
-import SideNavItem from './SideNavItem.astro';
+import SideNavRouteItem from './SideNavRouteItem.astro';
 import { routes } from '../utils/routes';
 import { SearchSection } from './SearchSection';
 
@@ -11,7 +10,9 @@ const currentRoute = new URL(url).pathname;
 
 <nav class="sticky top-[128px] ms-8 max-h-[calc(100svh-128px)] overflow-y-auto">
   <ul class="flex flex-col gap-5 text-sm font-bold">
-    {routes.map((route) => <SideNavItem route={route} currentRoute={currentRoute} />)}
+    <div class="flex flex-col gap-5">
+      {routes.map((route) => <SideNavRouteItem route={route} currentRoute={currentRoute} />)}
+    </div>
     <SearchSection buyerIP={buyerIP} client:only="react" />
   </ul>
 </nav>

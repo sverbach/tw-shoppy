@@ -4,8 +4,11 @@ import { CommandLoading } from 'cmdk';
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { predictiveSearch } from '@/utils/shopify/search';
-import { useSearch, useUserAgent } from './contexts';
-import { Badge } from './badge';
+import { useSearch } from './contexts';
+import { z } from 'zod';
+import { shortcutPressedHandler, type Shortcut } from '@/utils/shortcuts';
+import { ShortcutBadge } from './ShortcutBadge';
+import { SideNavItemIcon } from './SideNavItemIcon';
 
 interface Props {
   buyerIP: string;
@@ -22,8 +25,12 @@ function useDebounce<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
+const searchShortcut: z.infer<typeof Shortcut> = {
+  metaKey: true,
+  key: 'k',
+};
+
 export function SearchButton({ buyerIP }: Props) {
-  const { userAgent } = useUserAgent();
   const [searchOpen, setSearchOpen] = useState(false);
   const { search, setSearch } = useSearch();
   const queryClient = useQueryClient();
@@ -48,13 +55,9 @@ export function SearchButton({ buyerIP }: Props) {
     }
   };
 
-  // spawn the cmdk dialog when user presses "CTRL+K"
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setSearchOpen(true);
-      }
+      shortcutPressedHandler(e, searchShortcut, () => setSearchOpen(true));
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -63,9 +66,13 @@ export function SearchButton({ buyerIP }: Props) {
 
   return (
     <>
-      <Button variant="ghost" onClick={() => setSearchOpen(!searchOpen)}>
-        Search <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+K</Badge>
-      </Button>
+      <div className="flex gap-4 text-stone-500">
+        <SideNavItemIcon icon="SEARCH" />
+        <button type="button" onClick={() => setSearchOpen(!searchOpen)}>
+          search
+        </button>
+        <ShortcutBadge shortcut={searchShortcut} />
+      </div>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />
         <CommandList>

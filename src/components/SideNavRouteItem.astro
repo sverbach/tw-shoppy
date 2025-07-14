@@ -1,0 +1,25 @@
+---
+import type { PageRoute } from '@/utils/routes';
+import { z } from 'zod';
+import { SideNavItemIcon } from './SideNavItemIcon';
+import { ShortcutBadge } from './ShortcutBadge';
+import { RouteShortcut } from './RouteShortcut';
+
+interface Props {
+  route: z.infer<typeof PageRoute>;
+  currentRoute: string;
+}
+
+const { route, currentRoute } = Astro.props as Props;
+---
+
+<>
+  <li class="flex gap-4" class:list={['hover:text-black', { 'text-stone-500': !currentRoute.includes(route.link) }]}>
+    <SideNavItemIcon icon={route.icon} />
+    <a href={route.link}>
+      {route.title}
+    </a>
+    <ShortcutBadge shortcut={route.shortcut} client:only="react" />
+    <RouteShortcut route={route} client:only="react" />
+  </li>
+</>

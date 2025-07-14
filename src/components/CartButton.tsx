@@ -5,14 +5,22 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFo
 import { $cart, $isCartDrawerOpen, initCart } from '@/stores/cart';
 import { useStore } from '@nanostores/react';
 import { useUserAgent } from './contexts';
+import { z } from 'zod';
+import { shortcutPressedHandler, type Shortcut } from '@/utils/shortcuts';
+import { ShortcutBadge } from './ShortcutBadge';
+import { SideNavItemIcon } from './SideNavItemIcon';
 
 interface Props {
   buyerIP: string;
 }
 
+const cartShortcut: z.infer<typeof Shortcut> = {
+  metaKey: true,
+  key: 'j',
+};
+
 export function CartButton({ buyerIP }: Props) {
   const [isInitialized, setIsInitialized] = useState(false);
-  const { userAgent } = useUserAgent();
   const cart = useStore($cart);
   const open = useStore($isCartDrawerOpen);
 
@@ -29,10 +37,7 @@ export function CartButton({ buyerIP }: Props) {
   // spawn the cmdk dialog when user presses "CTRL+L"
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
-        e.preventDefault();
-        $isCartDrawerOpen.set(true);
-      }
+      shortcutPressedHandler(e, cartShortcut, () => $isCartDrawerOpen.set(true));
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -41,9 +46,13 @@ export function CartButton({ buyerIP }: Props) {
 
   return (
     <div>
-      <Button variant="ghost" onClick={() => $isCartDrawerOpen.set(!open)} disabled={!isInitialized}>
-        Cart <Badge variant="outline">{userAgent === 'mac' ? '⌘' : 'CTRL'}+L</Badge>
-      </Button>
+      <div className="flex gap-4 text-stone-500">
+        <SideNavItemIcon icon="CART" />
+        <button type="button" onClick={() => $isCartDrawerOpen.set(true)}>
+          cart
+        </button>
+        <ShortcutBadge shortcut={cartShortcut} />
+      </div>
       <Sheet open={open} onOpenChange={(openChange) => $isCartDrawerOpen.set(openChange)}>
         <SheetContent>
           <SheetHeader>

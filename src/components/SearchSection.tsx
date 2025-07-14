@@ -9,38 +9,20 @@ export interface Props {
 }
 
 const queryClient = getQueryClient();
-const userAgent = getUserAgent();
-
-function getUserAgent(): UserAgent {
-  const platform = window.navigator.platform.toLowerCase() ?? '';
-  const userAgent = window.navigator.userAgent.toLowerCase() ?? '';
-
-  if (platform.includes('mac') || userAgent.includes('macintosh')) {
-    return 'mac';
-  }
-
-  if (platform.includes('win') || userAgent.includes('windows')) {
-    return 'windows';
-  }
-
-  return 'other';
-}
 
 function SearchSection({ buyerIP }: Props) {
   return (
-    <UserAgentProvider agent={userAgent}>
-      <QueryClientProvider client={queryClient}>
-        <SearchProvider>
-          <FiltersProvider>
-            <div className="flex flex-col">
-              {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
-              <SearchButton buyerIP={buyerIP} />
-              <CartButton buyerIP={buyerIP} />
-            </div>
-          </FiltersProvider>
-        </SearchProvider>
-      </QueryClientProvider>
-    </UserAgentProvider>
+    <QueryClientProvider client={queryClient}>
+      <SearchProvider>
+        <FiltersProvider>
+          <div className="flex flex-col gap-5">
+            {/* change this to signup/login <OrderButton buyerIP={buyerIP} /> */}
+            <SearchButton buyerIP={buyerIP} />
+            <CartButton buyerIP={buyerIP} />
+          </div>
+        </FiltersProvider>
+      </SearchProvider>
+    </QueryClientProvider>
   );
 }
 
