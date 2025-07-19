@@ -171,5 +171,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    @apply selection:text-warn;
+    @apply selection:bg-warn/20;
   }
 }
