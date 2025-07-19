@@ -13,6 +13,6 @@ const currentRoute = new URL(url).pathname;
     <div class="flex flex-col gap-5">
       {routes.map((route) => <SideNavRouteItem route={route} currentRoute={currentRoute} />)}
     </div>
-    <SearchSection buyerIP={buyerIP} client:only="react" />
+    <SearchSection buyerIP={buyerIP} client:idle />
   </ul>
 </nav>

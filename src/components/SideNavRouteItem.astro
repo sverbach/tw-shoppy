@@ -19,7 +19,7 @@ const { route, currentRoute } = Astro.props as Props;
     <a href={route.link}>
       {route.title}
     </a>
-    <ShortcutBadge shortcut={route.shortcut} client:only="react" />
-    <RouteShortcut route={route} client:only="react" />
+    <ShortcutBadge shortcut={route.shortcut} client:idle />
+    <RouteShortcut route={route} client:idle />
   </li>
 </>
