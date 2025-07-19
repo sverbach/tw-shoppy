@@ -66,11 +66,13 @@ export function SearchButton({ buyerIP }: Props) {
 
   return (
     <>
-      <div className="flex gap-4 text-stone-500">
-        <SideNavItemIcon icon="SEARCH" />
-        <button type="button" onClick={() => setSearchOpen(!searchOpen)}>
-          search
-        </button>
+      <div className="flex justify-between text-stone-500">
+        <div className="flex gap-4">
+          <SideNavItemIcon icon="SEARCH" />
+          <button type="button" onClick={() => setSearchOpen(!searchOpen)}>
+            search
+          </button>
+        </div>
         <ShortcutBadge shortcut={searchShortcut} />
       </div>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>

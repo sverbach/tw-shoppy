@@ -19,5 +19,5 @@ export function ShortcutBadge({ shortcut }: Props) {
     setKeysDisplay(keys.join('+'));
   }, []);
 
-  return <>{keysDisplay === '' ? <div></div> : <Badge variant="outline">{keysDisplay}</Badge>}</>;
+  return <>{keysDisplay === '' ? <div></div> : <Badge variant="secondary">{keysDisplay}</Badge>}</>;
 }

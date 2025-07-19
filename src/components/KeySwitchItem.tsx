@@ -38,7 +38,7 @@ export function KeySwitchItem({ product, index }: Props) {
 
   return (
     <div
-      className="flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
+      className="text-accent flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
       role="button"
       tabIndex={-1}
       onMouseEnter={() => setShowAddToCartButton(true)}
@@ -66,18 +66,13 @@ export function KeySwitchItem({ product, index }: Props) {
           {product!.title}
         </a>
         <div className="flex gap-1">
-          <div
-            className={cn(
-              'h-2 w-2 self-center rounded-full',
-              variant.availableForSale ? 'bg-green-700' : 'bg-red-700'
-            )}
-          ></div>
+          <div className={cn('h-2 w-2 self-center rounded-full', variant.availableForSale ? 'bg-green-700' : 'bg-red-700')}></div>
           <span className="text-xs">{priceFormatted}</span>
         </div>
       </div>
       <Button
         variant="ghost"
-        className={cn('absolute top-0 right-0', showAddToCartButton ? 'block' : 'hidden')}
+        className={cn('text-primary absolute top-0 right-0', showAddToCartButton ? 'block' : 'hidden')}
         disabled={!cart || isCartUpdating}
         onClick={(e) => {
           e.preventDefault();
