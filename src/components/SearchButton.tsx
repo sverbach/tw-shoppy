@@ -66,14 +66,16 @@ export function SearchButton({ buyerIP }: Props) {
 
   return (
     <>
-      <div className="flex justify-between text-stone-500">
-        <div className="flex gap-4">
+      <div className="flex gap-4 text-stone-500 xl:justify-between">
+        <div className="hover:text-accent flex cursor-pointer gap-4" onClick={() => setSearchOpen(!searchOpen)}>
           <SideNavItemIcon icon="SEARCH" />
-          <button type="button" onClick={() => setSearchOpen(!searchOpen)}>
+          <button type="button" className="hidden cursor-pointer xl:block">
             search
           </button>
         </div>
-        <ShortcutBadge shortcut={searchShortcut} />
+        <div className="hidden md:block">
+          <ShortcutBadge shortcut={searchShortcut} />
+        </div>
       </div>
       <CommandDialog open={searchOpen} onOpenChange={handleOpenChange} shouldFilter={false}>
         <CommandInput placeholder="Search for a product..." onValueChange={(value) => setSearch(value)} />

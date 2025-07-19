@@ -54,10 +54,8 @@ export function ProductSetFilter({ filterId, availableFilters, disableOptions, c
       onValueChange={(selected) => setAppliedFilterValues((prev) => updateAppliedFilterValues(prev, selected))}
       defaultValue={selectedValues}
       placeholder={filter.label}
-      variant="inverted"
       animation={0}
       maxCount={maxCount}
-      className={className}
     />
   );
 }

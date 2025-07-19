@@ -63,7 +63,7 @@ export function Filters({ availableFilters, disableOptions }: Props) {
       ))}
 
       <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })}>
-        <SelectTrigger className="w-64">
+        <SelectTrigger>
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>

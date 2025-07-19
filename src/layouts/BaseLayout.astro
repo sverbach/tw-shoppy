@@ -1,10 +1,7 @@
 ---
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import Cart from '../components/Cart.svelte';
 import '../styles/global.css';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import Background from '../components/Background.astro';
 import SideNav from '../components/SideNav.astro';
 
 export interface Props {
@@ -31,9 +28,11 @@ const { title, description = defaultDesc } = Astro.props as Props;
   </head>
   <body class="bg-eggwhite">
     <Header />
-    <div class="mt-12 grid grid-cols-6 gap-10">
-      <SideNav />
-      <main class="col-span-4">
+    <div class="grid grid-cols-6 gap-5 xl:grid-cols-10 xl:gap-8">
+      <div class="xl:col-span-2">
+        <SideNav />
+      </div>
+      <main class="col-span-4 xl:col-span-7">
         <slot />
       </main>
       <aside></aside>

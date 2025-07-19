@@ -10,7 +10,7 @@ interface Props {
   icon: PageRouteIconType | UserActionIconType;
 }
 
-const test = {
+const IconMap = {
   [PageRouteIcon.Enum.KEYCAPS]: <Cuboid />,
   [PageRouteIcon.Enum.SWITCHES]: <Box />,
   [PageRouteIcon.Enum.ACCESSOIRS]: <Keyboard />,
@@ -19,5 +19,5 @@ const test = {
 };
 
 export function SideNavItemIcon({ icon }: Props) {
-  return <>{test[icon]}</>;
+  return <>{IconMap[icon]}</>;
 }

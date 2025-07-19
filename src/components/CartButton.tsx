@@ -46,14 +46,16 @@ export function CartButton({ buyerIP }: Props) {
 
   return (
     <div>
-      <div className="flex justify-between text-stone-500">
-        <div className="flex gap-4">
+      <div className="flex gap-4 text-stone-500 xl:justify-between">
+        <div className="hover:text-accent flex cursor-pointer gap-4" onClick={() => $isCartDrawerOpen.set(true)}>
           <SideNavItemIcon icon="CART" />
-          <button type="button" onClick={() => $isCartDrawerOpen.set(true)}>
+          <button type="button" className="hidden cursor-pointer xl:block">
             cart
           </button>
         </div>
-        <ShortcutBadge shortcut={cartShortcut} />
+        <div className="hidden md:block">
+          <ShortcutBadge shortcut={cartShortcut} />
+        </div>
       </div>
       <Sheet open={open} onOpenChange={(openChange) => $isCartDrawerOpen.set(openChange)}>
         <SheetContent>
