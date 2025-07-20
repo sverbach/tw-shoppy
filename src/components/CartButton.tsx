@@ -46,8 +46,8 @@ export function CartButton({ buyerIP }: Props) {
 
   return (
     <div>
-      <div className="flex gap-4 text-stone-500 xl:justify-between">
-        <div className="hover:text-accent flex cursor-pointer gap-4" onClick={() => $isCartDrawerOpen.set(true)}>
+      <div className="text-primary flex gap-4 xl:justify-between">
+        <div className="hover:text-secondary flex cursor-pointer gap-4" onClick={() => $isCartDrawerOpen.set(true)}>
           <SideNavItemIcon icon="CART" />
           <button type="button" className="hidden cursor-pointer xl:block">
             cart

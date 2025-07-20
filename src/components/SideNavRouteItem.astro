@@ -14,10 +14,17 @@ const { route, currentRoute } = Astro.props as Props;
 ---
 
 <>
-  <li class="flex gap-4 xl:justify-between" class:list={['hover:text-black', { 'text-stone-500': !currentRoute.includes(route.link) }]}>
+  <li
+    tabindex="0"
+    class="focus-visible:border-ring focus-visible:ring-ring/50 flex gap-4 rounded-md shadow-none transition-all focus-visible:ring-[3px] focus-visible:outline-none xl:justify-between"
+    class:list={[
+      'hover:text-secondary',
+      { 'text-primary': !currentRoute.includes(route.link), 'text-accent': currentRoute.includes(route.link) },
+    ]}
+  >
     <div class="flex cursor-pointer gap-4">
       <SideNavItemIcon icon={route.icon} />
-      <a href={route.link} class="hidden xl:block">
+      <a tabindex="-1" href={route.link} class="hidden xl:block">
         {route.title}
       </a>
     </div>

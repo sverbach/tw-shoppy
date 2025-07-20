@@ -208,21 +208,21 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-64 p-0" align="start" sideOffset={8} onEscapeKeyDown={() => setIsPopoverOpen(false)}>
+        <PopoverContent className="w-64 p-0 shadow-xl" align="start" sideOffset={8} onEscapeKeyDown={() => setIsPopoverOpen(false)}>
           <Command>
             <CommandInput placeholder="Search..." onKeyDown={handleInputKeyDown} />
-            <CommandList>
+            <CommandList className="pt-4">
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
                 <CommandItem key="all" onSelect={toggleAll} className="cursor-pointer">
                   <div
                     className={cn(
-                      'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-xs border',
-                      selectedValues.length === options.length ? 'bg-primary text-primary-foreground' : 'opacity-50 [&_svg]:invisible'
+                      'hover:bg-secondary mr-2 flex h-3 w-3 items-center justify-center rounded-xs',
+                      selectedValues.length === options.length
+                        ? 'bg-primary text-primary-foreground'
+                        : 'opacity-50 outline [&_svg]:invisible'
                     )}
-                  >
-                    <CheckIcon className="h-4 w-4" />
-                  </div>
+                  ></div>
                   <span>(Select All)</span>
                 </CommandItem>
                 {options.map((option) => {
@@ -236,12 +236,10 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     >
                       <div
                         className={cn(
-                          'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-xs border',
-                          isSelected ? 'text-primary-foreground bg-black' : 'opacity-50 [&_svg]:invisible'
+                          'hover:bg-secondary mr-2 flex h-3 w-6 items-center justify-center rounded-xs',
+                          isSelected ? 'text-primary-foreground bg-primary' : 'opacity-50 outline [&_svg]:invisible'
                         )}
-                      >
-                        <CheckIcon className="text-primary-foreground h-4 w-4" />
-                      </div>
+                      ></div>
                       <div className="flex w-100 justify-between">
                         {option.icon && <option.icon className="text-primary-foreground mr-2 h-4 w-4" />}
                         <span>{option.label}</span>
@@ -251,23 +249,22 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   );
                 })}
               </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup>
-                <div className="flex items-center justify-between">
-                  {selectedValues.length > 0 && (
-                    <>
-                      <CommandItem onSelect={handleClear} className="flex-1 cursor-pointer justify-center">
-                        Clear
-                      </CommandItem>
-                      <Separator orientation="vertical" className="flex h-full min-h-6" />
-                    </>
-                  )}
-                  <CommandItem onSelect={() => setIsPopoverOpen(false)} className="max-w-full flex-1 cursor-pointer justify-center">
-                    Close
-                  </CommandItem>
-                </div>
-              </CommandGroup>
             </CommandList>
+            <CommandGroup className="pt-4">
+              <div className="flex items-center justify-between">
+                {selectedValues.length > 0 && (
+                  <>
+                    <CommandItem onSelect={handleClear} className="flex-1 cursor-pointer justify-center">
+                      Clear
+                    </CommandItem>
+                    <Separator orientation="vertical" className="flex h-full min-h-6" />
+                  </>
+                )}
+                <CommandItem onSelect={() => setIsPopoverOpen(false)} className="max-w-full flex-1 cursor-pointer justify-center">
+                  Close
+                </CommandItem>
+              </div>
+            </CommandGroup>
           </Command>
         </PopoverContent>
       </Popover>

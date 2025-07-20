@@ -66,8 +66,8 @@ export function SearchButton({ buyerIP }: Props) {
 
   return (
     <>
-      <div className="flex gap-4 text-stone-500 xl:justify-between">
-        <div className="hover:text-accent flex cursor-pointer gap-4" onClick={() => setSearchOpen(!searchOpen)}>
+      <div className="text-primary flex gap-4 xl:justify-between">
+        <div className="hover:text-secondary flex cursor-pointer gap-4" onClick={() => setSearchOpen(!searchOpen)}>
           <SideNavItemIcon icon="SEARCH" />
           <button type="button" className="hidden cursor-pointer xl:block">
             search
