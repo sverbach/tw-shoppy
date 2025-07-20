@@ -1,7 +1,5 @@
 import { z } from 'zod';
-import { ProductFilters, SortKey } from '@/utils/schemas';
-import { useSort } from './contexts';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select';
+import { ProductFilters } from '@/utils/schemas';
 import { ProductSetFilter } from './ProductSetFilter';
 import type { ProductSetFilterId } from './ProductSetFilter';
 
@@ -40,17 +38,8 @@ const FILTER_CONFIGS: FilterConfig[] = [
 ];
 
 export function Filters({ availableFilters, disableOptions }: Props) {
-  const { setSort } = useSort();
-
-  const sortOptions: { label: string; value: string }[] = [
-    { label: 'Most relevant', value: SortKey.Enum.RELEVANCE },
-    { label: 'Most recent', value: SortKey.Enum.CREATED },
-    { label: 'Price', value: SortKey.Enum.PRICE },
-    { label: 'Name', value: SortKey.Enum.TITLE },
-  ];
-
   return (
-    <div className="flex flex-wrap gap-7">
+    <div className="flex flex-wrap gap-4">
       {FILTER_CONFIGS.map((config) => (
         <ProductSetFilter
           key={config.id}
@@ -61,21 +50,6 @@ export function Filters({ availableFilters, disableOptions }: Props) {
           disableOptions={disableOptions}
         />
       ))}
-
-      <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })}>
-        <SelectTrigger>
-          <SelectValue placeholder="Sort by" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {sortOptions.map((sortOption) => (
-              <SelectItem value={sortOption.value} key={sortOption.value}>
-                {sortOption.label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
     </div>
   );
 }

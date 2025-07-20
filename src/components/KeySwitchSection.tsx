@@ -5,6 +5,7 @@ import { CommandProvider, FiltersProvider, SearchProvider, SortProvider } from '
 import { FiltersSection } from './FiltersSection';
 import { KeySwitchItemList } from './KeySwitchItemList';
 import { CommandPaletteTrigger } from './CommandPaletteTrigger';
+import { Sort } from './Sort';
 
 export interface Props {
   buyerIP: string;
@@ -20,6 +21,7 @@ function KeySwitchSection({ buyerIP }: Props) {
           <FiltersProvider>
             <CommandProvider>
               <FiltersSection buyerIP={buyerIP} />
+              <Sort />
               <KeySwitchItemList buyerIP={buyerIP} />
               <CommandPaletteTrigger />
             </CommandProvider>
