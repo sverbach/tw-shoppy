@@ -220,7 +220,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       'hover:bg-secondary mr-2 flex h-3 w-3 items-center justify-center rounded-xs',
                       selectedValues.length === options.length
                         ? 'bg-primary text-primary-foreground'
-                        : 'opacity-50 outline [&_svg]:invisible'
+                        : 'outline-secondary outline [&_svg]:invisible'
                     )}
                   ></div>
                   <span>(Select All)</span>
@@ -237,7 +237,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       <div
                         className={cn(
                           'hover:bg-secondary mr-2 flex h-3 w-6 items-center justify-center rounded-xs',
-                          isSelected ? 'text-primary-foreground bg-primary' : 'opacity-50 outline [&_svg]:invisible'
+                          isSelected ? 'text-primary-foreground bg-primary' : 'outline-secondary outline [&_svg]:invisible'
                         )}
                       ></div>
                       <div className="flex w-100 justify-between">
