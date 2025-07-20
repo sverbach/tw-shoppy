@@ -18,7 +18,7 @@ export const routes: z.infer<typeof PageRoutes> = [
     icon: 'KEYCAPS',
     shortcut: {
       altKey: true,
-      key: 'j',
+      key: '1',
     },
   },
   {
@@ -27,7 +27,7 @@ export const routes: z.infer<typeof PageRoutes> = [
     icon: 'SWITCHES',
     shortcut: {
       altKey: true,
-      key: 'k',
+      key: '2',
     },
   },
   {
@@ -36,7 +36,7 @@ export const routes: z.infer<typeof PageRoutes> = [
     icon: 'ACCESSOIRS',
     shortcut: {
       altKey: true,
-      key: 'l',
+      key: '3',
     },
   },
 ];

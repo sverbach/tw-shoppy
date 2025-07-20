@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const Shortcut = z.object({
+  tabKey: z.boolean().optional(),
   altKey: z.boolean().optional(),
   metaKey: z.boolean().optional(),
   key: z.string(),
