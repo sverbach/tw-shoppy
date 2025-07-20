@@ -175,5 +175,9 @@
     @apply bg-background text-foreground;
     @apply selection:text-warn;
     @apply selection:bg-warn/20;
+
+    scrollbar-color: #736d63 transparent;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
   }
 }

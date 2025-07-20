@@ -20,7 +20,7 @@ export function Sort({}: Props) {
         <SelectTrigger>
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="border-secondary/20 shadow-lg">
           <SelectGroup>
             {sortOptions.map((sortOption) => (
               <SelectItem value={sortOption.value} key={sortOption.value}>
