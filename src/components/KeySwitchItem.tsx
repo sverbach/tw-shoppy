@@ -47,7 +47,7 @@ export function KeySwitchItem({ product, index }: Props) {
       <a href={`/switches/${product!.handle}`} tabIndex={-1}>
         <ShopifyImage
           classList={cn(
-            'z-10 overflow-hidden object-cover flex-none hover:translate-y-2 transition-transform',
+            'z-10 overflow-hidden object-cover flex-none hover:translate-y-[-3px] transition-transform',
             command !== 'dance'
               ? ''
               : index % 3 === 0
@@ -61,7 +61,7 @@ export function KeySwitchItem({ product, index }: Props) {
           sizes={`100px`}
         />
       </a>
-      <div className="ms-1 flex flex-1 flex-col gap-1">
+      <div className="ms-1 flex flex-1 flex-col gap-1 font-mono">
         <a href={`/switches/${product!.handle}`} className="max-h-[30px] overflow-hidden text-start text-xs">
           {product!.title}
         </a>
