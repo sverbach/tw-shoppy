@@ -4,6 +4,7 @@
 @theme {
   --font-display: 'Ubuntu', 'sans';
   --font-sans: 'Ubuntu', 'sans';
+  --font-mono: 'Ubuntu Mono', monospace;
   --color-eggwhite: #e0d6cc;
   --color-hover: rgba(0, 0, 0, 0.1);
 
