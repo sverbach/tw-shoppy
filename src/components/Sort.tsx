@@ -6,19 +6,20 @@ import type { z } from 'zod';
 interface Props {}
 
 export function Sort({}: Props) {
-  const { setSort } = useSort();
+  const { sort, setSort } = useSort();
 
   const sortOptions: { label: string; value: string }[] = [
     { label: 'Most relevant', value: SortKey.Enum.RELEVANCE },
     { label: 'Most recent', value: SortKey.Enum.CREATED },
-    { label: 'Price', value: SortKey.Enum.PRICE },
+    { label: 'Lowest price', value: SortKey.Enum.PRICE },
     { label: 'Name', value: SortKey.Enum.TITLE },
   ];
   return (
-    <div className="self-end">
-      <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })}>
+    <div className="text-primary flex items-baseline text-sm font-semibold">
+      <span>Sort by:</span>
+      <Select onValueChange={(value) => setSort({ key: value as z.infer<typeof SortKey>, ascending: true })} value={sort.key}>
         <SelectTrigger>
-          <SelectValue placeholder="Sort by" />
+          <SelectValue />
         </SelectTrigger>
         <SelectContent className="border-secondary/20 shadow-lg">
           <SelectGroup>

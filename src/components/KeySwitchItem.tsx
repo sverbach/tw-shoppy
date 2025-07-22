@@ -7,7 +7,7 @@ import { ShoppingCart } from 'lucide-react';
 import { useStore } from '@nanostores/react';
 import { $cart, $isCartUpdating, addCartItem } from '@/stores/cart.ts';
 import { useEffect, useState } from 'react';
-import { useCommand } from './contexts.tsx';
+import { useCommand, useUserPreferences } from './contexts.tsx';
 
 interface Props {
   product: z.infer<typeof ProductResult>;
@@ -18,9 +18,9 @@ export function KeySwitchItem({ product, index }: Props) {
   const cart = useStore($cart);
   const isCartUpdating = useStore($isCartUpdating);
   const { command } = useCommand();
+  const { showKeySwitchPricePerQuantity } = useUserPreferences();
   const [showAddToCartButton, setShowAddToCartButton] = useState(false);
   const [priceFormatted, setPriceFormatted] = useState('');
-  const [danceAnimation, setDanceAnimation] = useState('');
   const variant = product!.variants.nodes[0];
 
   useEffect(() => {
@@ -28,9 +28,9 @@ export function KeySwitchItem({ product, index }: Props) {
       new Intl.NumberFormat('de-CH', {
         style: 'currency',
         currency: variant.price.currencyCode,
-      }).format(Number(variant.price.amount))
+      }).format(Number(variant.price.amount) * showKeySwitchPricePerQuantity)
     );
-  }, [product]);
+  }, [product, showKeySwitchPricePerQuantity]);
 
   async function handleClickAddToCart(variantId: string) {
     await addCartItem({ id: variantId, quantity: 10 });

@@ -111,3 +111,27 @@ export function useCommand() {
   }
   return context;
 }
+
+type UserPreferencesContextType = {
+  showKeySwitchPricePerQuantity: number;
+  setShowKeySwitchPricePerQuantity: (quantity: number) => void;
+};
+
+const UserPreferencesContext = createContext<UserPreferencesContextType | undefined>(undefined);
+export function UserPreferencesProvider({ children }: { children: ReactNode }) {
+  const [showKeySwitchPricePerQuantity, setShowKeySwitchPricePerQuantity] = useState<number>(1);
+
+  return (
+    <UserPreferencesContext.Provider value={{ showKeySwitchPricePerQuantity, setShowKeySwitchPricePerQuantity }}>
+      {children}
+    </UserPreferencesContext.Provider>
+  );
+}
+
+export function useUserPreferences() {
+  const context = useContext(UserPreferencesContext);
+  if (!context) {
+    throw new Error('useUserPreferences must be used within a UserPreferencesContext');
+  }
+  return context;
+}
