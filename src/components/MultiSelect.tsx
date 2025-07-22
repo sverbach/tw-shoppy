@@ -13,7 +13,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
  * Variants for the multi-select component to handle different styles.
  * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
  */
-const multiSelectVariants = cva('m-1', {
+const multiSelectVariants = cva('m-1 font-bold', {
   variants: {
     variant: {
       default: '',
@@ -161,7 +161,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             variant="ghost"
             onClick={handleTogglePopover}
             className={cn(
-              'flex h-6 items-center justify-between rounded-sm p-0 [&_svg]:pointer-events-auto',
+              'flex h-6 items-center justify-between rounded-sm p-0 font-semibold [&_svg]:pointer-events-auto',
               selectedValues.length > 0 ? 'bg-primary' : 'bg-background',
               className
             )}

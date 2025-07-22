@@ -2,8 +2,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-display: 'Space Grotesk', 'sans';
-  --font-sans: 'Space Grotesk', 'sans';
+  --font-display: 'Ubuntu', 'sans';
+  --font-sans: 'Ubuntu', 'sans';
   --color-eggwhite: #e0d6cc;
   --color-hover: rgba(0, 0, 0, 0.1);
 
