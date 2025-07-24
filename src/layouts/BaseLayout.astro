@@ -3,8 +3,8 @@ import Header from '../components/Header.astro';
 import Cart from '../components/Cart.svelte';
 import '../styles/global.css';
 import SideNav from '../components/SideNav.astro';
-import '@fontsource/ubuntu';
-import '@fontsource/ubuntu-mono';
+import '@fontsource-variable/ubuntu-sans';
+import '@fontsource-variable/ubuntu-sans-mono';
 
 export interface Props {
   title: string;
@@ -31,7 +31,7 @@ const { title, description = defaultDesc } = Astro.props as Props;
       <div class="xl:col-span-2">
         <SideNav />
       </div>
-      <main class="col-span-4 xl:col-span-7">
+      <main class="col-span-4 xl:col-span-6">
         <slot />
       </main>
       <aside></aside>

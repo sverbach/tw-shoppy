@@ -1,4 +1,5 @@
 ---
+import ASCIIText from '@/components/TextAnimations/ASCIIText/ASCIIText';
 import BaseLayout from './BaseLayout.astro';
 
 export interface Props {
@@ -8,18 +9,22 @@ export interface Props {
 
 Astro.response.status = 404;
 
-const defaultTitle = 'Page not found';
+const defaultTitle = 'Page not found 😞';
 
 const { title = defaultTitle, message = defaultTitle } = Astro.props as Props;
 ---
 
 <BaseLayout title={title}>
-  <div class="container grid justify-center py-44 text-center">
-    <span class="text-6xl font-bold text-emerald-900">404</span>
-    <h1 class="mt-4 text-xl">{message}</h1>
-    <a href="/" class="mt-6 font-semibold text-emerald-900 hover:text-emerald-700">
-      Go back home
-      <span aria-hidden="true"> &rarr;</span>
-    </a>
+  <div class="container grid w-full justify-center text-center">
+    <div class="relative max-h-[450px] min-h-[450px] min-w-[400px]">
+      <ASCIIText text="404" enableWaves={true} asciiFontSize={4} textColor="#403c35" textFontSize={400} client:load />
+    </div>
+    <div class="text-primary flex translate-y-[-70px] flex-col items-center font-mono">
+      <h1 class="font-mono text-xl">{message}</h1>
+      <a href="/" class="font-bold">
+        <span aria-hidden="true">←</span>
+        Go back home
+      </a>
+    </div>
   </div>
 </BaseLayout>

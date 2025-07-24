@@ -2,9 +2,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-display: 'Ubuntu', 'sans';
-  --font-sans: 'Ubuntu', 'sans';
-  --font-mono: 'Ubuntu Mono', monospace;
+  --font-display: 'Ubuntu Sans Variable', 'sans';
+  --font-sans: 'Ubuntu Sans Variable', 'sans';
+  --font-mono: 'Ubuntu Sans Variable Mono', monospace;
   --color-eggwhite: #e0d6cc;
   --color-hover: rgba(0, 0, 0, 0.1);
 
