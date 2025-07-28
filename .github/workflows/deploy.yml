@@ -13,6 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create .env file
+        run: |
+          echo "PUBLIC_SHOPIFY_SHOP=${{ secrets.PUBLIC_SHOPIFY_SHOP }}" >> .env
+          echo "PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
+          echo "PRICRATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.PRICRATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
