@@ -11,10 +11,10 @@ interface Props {
 }
 
 const IconMap = {
-  [PageRouteIcon.Enum.KEYCAPS]: <Cuboid />,
-  [PageRouteIcon.Enum.SWITCHES]: <Box />,
-  [PageRouteIcon.Enum.ACCESSOIRS]: <Keyboard />,
-  [UserActionIcon.Enum.SEARCH]: <Search />,
+  [PageRouteIcon.enum.KEYCAPS]: <Cuboid />,
+  [PageRouteIcon.enum.SWITCHES]: <Box />,
+  [PageRouteIcon.enum.ACCESSOIRS]: <Keyboard />,
+  [UserActionIcon.enum.SEARCH]: <Search />,
   [UserActionIcon.enum.CART]: <ShoppingCart />,
 };
 

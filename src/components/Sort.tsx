@@ -9,10 +9,10 @@ export function Sort({}: Props) {
   const { sort, setSort } = useSort();
 
   const sortOptions: { label: string; value: string }[] = [
-    { label: 'Most relevant', value: SortKey.Enum.RELEVANCE },
-    { label: 'Most recent', value: SortKey.Enum.CREATED },
-    { label: 'Lowest price', value: SortKey.Enum.PRICE },
-    { label: 'Name', value: SortKey.Enum.TITLE },
+    { label: 'Most relevant', value: SortKey.enum.RELEVANCE },
+    { label: 'Most recent', value: SortKey.enum.CREATED },
+    { label: 'Lowest price', value: SortKey.enum.PRICE },
+    { label: 'Name', value: SortKey.enum.TITLE },
   ];
   return (
     <div className="text-primary flex items-baseline text-sm font-semibold">
