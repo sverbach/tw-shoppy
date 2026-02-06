@@ -38,7 +38,7 @@ export function KeySwitchItem({ product, index }: Props) {
 
   return (
     <div
-      className="text-accent flex h-[150px] w-[100px] flex-col rounded-md p-2 font-bold backdrop-blur-sm"
+      className="text-accent shadow-terniary flex h-37.5 w-25 flex-col rounded-md border-2 p-2 font-bold shadow-md backdrop-blur-sm"
       role="button"
       tabIndex={-1}
       onMouseEnter={() => setShowAddToCartButton(true)}

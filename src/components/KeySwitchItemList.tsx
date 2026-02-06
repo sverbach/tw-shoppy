@@ -18,7 +18,7 @@ export function KeySwitchItemList({ buyerIP }: Props) {
   });
 
   return (
-    <section className="grid grid-cols-(--grid-layout-items) overflow-auto pt-4 pb-4">
+    <section className="grid grid-cols-(--grid-layout-items) gap-4 overflow-auto pt-4 pb-4">
       {isLoading || !data ? (
         <div>loading...</div>
       ) : (

@@ -22,11 +22,11 @@ function KeySwitchSection({ buyerIP }: Props) {
           <FiltersProvider>
             <CommandProvider>
               <UserPreferencesProvider>
-                <FiltersSection buyerIP={buyerIP} />
-                <div className="flex justify-end gap-4">
+                <div className="flex items-end justify-between">
+                  <FiltersSection buyerIP={buyerIP} />
                   <Sort />
-                  <SelectKeySwitchPricePerQuantity />
                 </div>
+                <div className="w-full border"></div>
                 <KeySwitchItemList buyerIP={buyerIP} />
                 <CommandPaletteTrigger />
               </UserPreferencesProvider>
